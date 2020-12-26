@@ -7,6 +7,9 @@ on:
     branches: [ master ]
   workflow_dispatch:
 
+env: 
+  PUB_BRANCH: gh-pages
+
 jobs:
 
   create-branch:
@@ -15,25 +18,25 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v2
 
-      - name: Create new branch (publish)
+      - name: Create new branch
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git branch -f publish
-          git checkout publish
+          git branch -f $PUB_BRANCH
+          git checkout $PUB_BRANCH
           git rm .gitignore
           git commit -m "Remove .gitignore"
-          git push -uf origin publish
+          git push -uf origin $PUB_BRANCH
 
 
   compile-sass:
     runs-on: ubuntu-latest
     needs: [create-branch]
     steps:
-      - name: Checkout publish branch
+      - name: Checkout new branch
         uses: actions/checkout@v2
         with:
-          ref: publish
+          ref: ${{env.PUB_BRANCH}}
 
       - name: Find sass files & create .css paths
         run: ./.github/scripts/find-scss.sh
@@ -62,10 +65,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [create-branch, compile-sass]
     steps:
-      - name: Checkout publish branch
+      - name: Checkout new branch
         uses: actions/checkout@v2
         with:
-          ref: publish
+          ref: ${{env.PUB_BRANCH}}
 
       - name: Find TypeScript files
         run: |
