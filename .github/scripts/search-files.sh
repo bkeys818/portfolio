@@ -1,14 +1,12 @@
 #!/bin/bash
 
-ignore=$'./node_modules\n./.github\n./.vscode\n'
-input=$1
+if [[ $ignore ]] && [[ ! $ignore_str ]]; then
+    ignore_str='\( '
+    for item in $ignore; do
+        ignore_str+="-path $item -o "
+    done;
+    ignore_str="${ignore_str%???}\) -prune -false -o"
+    # echo "ignore_str=$ignore_str" >> $GITHUB_ENV
+fi;
 
-ignore_str='-type d \( '
-for i in ${ignore%?}; do
-    ignore_str+="-path $i -o "
-done;
-ignore_str="${ignore_str%???}\) -prune -false -o"
-
-cmd="find . $ignore_str $input"
-
-echo $(eval $cmd);
+echo "$(eval "find . $ignore_str \( $1 \)")"
