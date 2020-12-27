@@ -1,1 +1,4 @@
-*.map
+*.prettierrc.json
+*.css.map
+*.js.map
+*.css
