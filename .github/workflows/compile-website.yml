@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 
 env: 
-  PUB_BRANCH: gh-pages
+  PUB_BRANCH: publish
 
 jobs:
 
