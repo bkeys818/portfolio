@@ -45,13 +45,13 @@ jobs:
     
     steps:
       - name: Checkout new branch
-        if: $${{ needs.find-files.outputs.sass_files != '' }}
+        if: $${{ needs.find-files.outputs.sass_files == '' }}
         uses: actions/checkout@v2
         with:
           ref: ${{env.PUB_BRANCH}}
 
       - name: Find sass files & create .css paths
-        if: $${{ needs.find-files.outputs.sass_files != '' }}
+        if: $${{ needs.find-files.outputs.sass_files == '' }}
         run: |
           lb=$'\n';
           export IFS=":";
@@ -67,7 +67,7 @@ jobs:
           {delimiter}" >> $GITHUB_ENV
 
       - name: Compile .css from .scss files
-        if: $${{ needs.find-files.outputs.sass_files != '' }}
+        if: $${{ needs.find-files.outputs.sass_files == '' }}
         uses: bkeys818/sass-build@master
         with:
           source: |
@@ -76,7 +76,7 @@ jobs:
             ${{env.destinations}}
 
       - name: Remove .scss files and push changes
-        if: $${{ needs.find-files.outputs.sass_files != '' }}
+        if: $${{ needs.find-files.outputs.sass_files == '' }}
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
