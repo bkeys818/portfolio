@@ -38,34 +38,52 @@ done <<< "$files"
 
 
 if [[ $sass_sources ]]; then
-    echo "sass_sources<<{delimiter}
-${sass_sources%?}
-{delimiter}" >> $GITHUB_ENV;
-    echo "sass_destinations<<{delimiter}
-${sass_destinations%?}
-{delimiter}" >> $GITHUB_ENV;
+    sass_sources=${sass_sources%?}
+    sass_sources="${sass_sources//$'\n'/'%0A'}"
+    echo "::set-output name=sass_sources::$sass_sources"
+    sass_desinations=${sass_desinations%?}
+    sass_desinations="${sass_desinations//$'\n'/'%0A'}"
+    echo "::set-output name=sass_desinations::$sass_desinations"
+#     echo "sass_sources<<{delimiter}
+# ${sass_sources%?}
+# {delimiter}" >> $GITHUB_ENV;
+#     echo "sass_destinations<<{delimiter}
+# ${sass_destinations%?}
+# {delimiter}" >> $GITHUB_ENV;
 fi;
 
 if [[ $ts_files ]]; then
-    echo "ts_files<<{delimiter}
-${ts_files%?}
-{delimiter}" >> $GITHUB_ENV;
+    ts_files=${ts_files%?}
+    ts_files="${ts_files//$'\n'/'%0A'}"
+    echo "::set-output name=ts_files::$ts_files"
+#     echo "ts_files<<{delimiter}
+# ${ts_files%?}
+# {delimiter}" >> $GITHUB_ENV;
 fi;
 
 if [[ $js_files ]]; then
-    echo "js_files<<{delimiter}
-${js_files%?}
-{delimiter}" >> $GITHUB_ENV;
+    js_files=${js_files%?}
+    js_files="${js_files//$'\n'/'%0A'}"
+    echo "::set-output name=js_files::$js_files"
+#     echo "js_files<<{delimiter}
+# ${js_files%?}
+# {delimiter}" >> $GITHUB_ENV;
 fi;
 
 if [[ $html_files ]]; then
-    echo "html_files<<{delimiter}
-${html_files%?}
-{delimiter}" >> $GITHUB_ENV;
+    html_files=${html_files%?}
+    html_files="${html_files//$'\n'/'%0A'}"
+    echo "::set-output name=html_files::$html_files"
+#     echo "html_files<<{delimiter}
+# ${html_files%?}
+# {delimiter}" >> $GITHUB_ENV;
 fi;
 
 if [[ $svg_files ]]; then
-    echo "svg_files<<{delimiter}
-${svg_files%?}
-{delimiter}" >> $GITHUB_ENV;
+    svg_files=${svg_files%?}
+    svg_files="${svg_files//$'\n'/'%0A'}"
+    echo "::set-output name=svg_files::$svg_files"
+#     echo "svg_files<<{delimiter}
+# ${svg_files%?}
+# {delimiter}" >> $GITHUB_ENV;
 fi;
