@@ -33,21 +33,26 @@ done <<< "$files"
 
 
 if [[ $sass_files ]]; then
-    echo "::set-output name=sass_files::\"${sass_files%?}\""
+    echo ${sass_files%?}
+    echo "::set-output name=sass_files::${sass_files%?}"
 fi;
 
 if [[ $sass_files ]]; then
-    echo "::set-output name=ts_files::\"${ts_files%?}\""
+    echo ${ts_files%?}
+    echo "::set-output name=ts_files::${ts_files%?}"
 fi;
 
 if [[ $sass_files ]]; then
-    echo "::set-output name=js_files::\"${js_files%?}\""
+    echo ${js_files%?}
+    echo "::set-output name=js_files::${js_files%?}"
 fi;
 
 if [[ $sass_files ]]; then
-    echo "::set-output name=html_files::\"${html_files%?}\""
+    echo ${html_files%?}
+    echo "::set-output name=html_files::${html_files%?}"
 fi;
 
 if [[ $sass_files ]]; then
-    echo "::set-output name=svg_files::\"${svg_files%?}\""
+    echo ${svg_files%?}
+    echo "::set-output name=svg_files::${svg_files%?}"
 fi;
