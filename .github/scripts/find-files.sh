@@ -40,11 +40,11 @@ done <<< "$files"
 
 if [[ $sass_sources ]]; then
     echo "sass_sources<<{delimiter}
-    ${sass_sources%?}
-    {delimiter}" >> $GITHUB_ENV;
+${sass_sources%?}
+{delimiter}" >> $GITHUB_ENV;
     echo "sass_destinations<<{delimiter}
-    ${sass_destinations%?}
-    {delimiter}" >> $GITHUB_ENV;
+${sass_destinations%?}
+{delimiter}" >> $GITHUB_ENV;
 fi;
 
 if [[ $ts_files ]]; then
