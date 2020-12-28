@@ -123,7 +123,8 @@ jobs:
       - name: Compile TypeScript
         run: |
           while IFS= read -r file; do
-            tsc $file
+            echo "$file"
+            tsc "$file"
           done <<< "${{needs.find-files.outputs.ts_files}}"
 
       - name: Upload Compiled files
