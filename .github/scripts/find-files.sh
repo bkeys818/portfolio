@@ -31,21 +31,31 @@ done;
 
 
 if [[ ! ${#sass_files[@]} -eq 0 ]]; then
-    echo "::set-output name=sass_files::$(printf '%s\n' "${sass_files[@]}")"
+    sass_files="$(printf '%s\n' "${sass_files[@]}")"
+    echo $sass_files
+    echo "::set-output name=sass_files::$sass_files"
 fi;
 
 if [[ ! ${#ts_files[@]} -eq 0 ]]; then
-    echo "::set-output name=ts_files::$(printf '%s\n' "${ts_files[@]}")"
+    ts_files="$(printf '%s\n' "${ts_files[@]}")"
+    echo $ts_files
+    echo "::set-output name=ts_files::$ts_files"
 fi;
 
 if [[ ! ${#js_files[@]} -eq 0 ]]; then
-    echo "::set-output name=js_files::$(printf '%s\n' "${js_files[@]}")"
+    js_files="$(printf '%s\n' "${js_files[@]}")"
+    echo $js_files
+    echo "::set-output name=js_files::$js_files"
 fi;
 
 if [[ ! ${#html_files[@]} -eq 0 ]]; then
-    echo "::set-output name=html_files::$(printf '%s\n' "${html_files[@]}")"
+    html_files="$(printf '%s\n' "${html_files[@]}")"
+    echo $html_files
+    echo "::set-output name=html_files::$html_files"
 fi;
 
 if [[ ! ${#svg_files[@]} -eq 0 ]]; then
-    echo "::set-output name=svg_files::$(printf '%s\n' "${svg_files[@]}")"
+    svg_files="$(printf '%s\n' "${svg_files[@]}")"
+    echo $svg_files
+    echo "::set-output name=svg_files::$svg_files"
 fi;
