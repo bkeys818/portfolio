@@ -40,9 +40,12 @@ jobs:
 
       - name: Compile Sass 
         if: ${{ env.sass_sources != '' }}
-        run: |
-          echo "\"$sass_sources\""
-          echo "\"$sass_destinations\""
+        uses: bkeys818/sass-build@master
+        with:
+          source: |
+            ${{env.sass_sources}}
+          destination: |
+            ${{env.sass_destinations}}
 
       - name: Compile Typescript
         if: ${{ env.ts_files != '' }}
