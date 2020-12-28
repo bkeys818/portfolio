@@ -40,12 +40,12 @@ jobs:
       #     git checkout
 
   
-  test-conditional:
+  Compile Sass:
     runs-on: ubuntu-latest
     needs: find-files
-    if: ${{ needs.find-files.outputs.ts_files != '' }}
+    if: ${{ needs.find-files.outputs.sass_sources != '' }}
     steps:
-      - run: echo "\"${{ needs.find-files.outputs.ts_files }}\""
+      -run: echo "\"${{needs.find-files.outputs.sass_sources}}\""
 
 
 
