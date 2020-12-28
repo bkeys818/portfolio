@@ -48,8 +48,8 @@ jobs:
     steps:
       - id: echo-files
         run: |
-          echo "SASS files: ""${{needs.prep-work.outputs.sass_files}}"
-          echo "TS files: ""${{needs.prep-work.outputs.ts_files}}"
-          echo "JS files: ""${{needs.prep-work.outputs.js_files}}"
-          echo "HTML files: ""${{needs.prep-work.outputs.html_files}}"
-          echo "SVG files: ""${{needs.prep-work.outputs.svg_files}}"
+          echo "${{needs.prep-work.outputs.sass_files}}"
+          echo "${{needs.prep-work.outputs.ts_files}}"
+          echo "${{needs.prep-work.outputs.js_files}}"
+          echo "${{needs.prep-work.outputs.html_files}}"
+          echo "${{needs.prep-work.outputs.svg_files}}"
