@@ -36,29 +36,28 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git branch -f $PUB_BRANCH
+          git checkout
 
       - name: Compile Sass 
-        # if: ${{ hashFiles('**/*.sass', '!**_*/*.sass', '**/*.scss', '!**/_*.scss', '!**/.github/**', '!**/node_modules/**') }}
+        if: ${{ env.sass_sources != '' }}
         run: |
           echo "\"$sass_sources\""
           echo "\"$sass_destinations\""
 
       - name: Compile Typescript
         if: ${{ env.ts_files != '' }}
-        # if: ${{ hashFiles('**/*.ts', '!**/.github/**', '!**/node_modules/**') }}
         run: echo "\"$ts_files\""
 
       - name: Minify Javascript
         if: ${{ env.js_files != '' }}
-        # if: ${{ hashFiles('**/*.js', '!**/.github/**', '!**/node_modules/**') }}
         run: echo "\"$js_files\""
 
       - name: Minify HTML
         if: ${{ env.html_files != '' }}
-        # if: ${{ hashFiles('**/*.html', '!**/.github/**', '!**/node_modules/**') }}
         run: echo "\"$html_files\""
 
       - name: Minify SVG
         if: ${{ env.svg_files != '' }}
-        # if: ${{ hashFiles('**/*.svg', '!**/.github/**', '!**/node_modules/**') }}
         run: echo "\"$svg_files\""
+
+      - run: ls -1R
