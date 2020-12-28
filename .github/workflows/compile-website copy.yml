@@ -241,7 +241,7 @@ jobs:
   make-changes:
     runs-on: ubuntu-latest
     if: always()
-    needs: [compile-sass, compile-ts]
+    needs: [compile-sass, compile-ts, minify-js-and-html, minify-svg]
     steps:
       - name: Download artifact w/ compiled and minified files
         uses: actions/download-artifact@v2
