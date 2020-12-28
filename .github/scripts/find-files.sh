@@ -14,53 +14,40 @@ search_for() {
 search_arg="-type f \( -name '*.scss' -not -name '_*.scss' \) -o \( -name '*.sass' -not -name '_*.sass' \) -o -name '*.ts' -o -name '*.js' -o -name '*.html' -o -name '*.svg'";
 files=$(search_for "$search_arg");
 
-for file in $files; do
-    case $file in
+lb=$'\n'
+
+while IFS= read -r file; do
+    case "$file" in
         *.scss | *.sass)
-            sass_files+="$file"$'\n';;
+            sass_files+="$file$lb";;
         *.ts)
-            ts_files+="$file"$'\n';;
+            ts_files+="$file$lb";;
         *.js)
-            js_files+="$file"$'\n';;
+            js_files+="$file$lb";;
         *.html)
-            html_files+="$file"$'\n';;
+            html_files+="$file$lb";;
         *.svg)
-            svg_files+="$file"$'\n';;
+            svg_files+="$file$lb";;
     esac
-done;
+done <<< "$files"
 
 
 if [[ $sass_files ]]; then
-# if [[ ! ${#sass_files[@]} -eq 0 ]]; then
-#     sass_files="$(printf '%s\n' "${sass_files[@]}")"
-    echo $sass_files
-    echo "::set-output name=sass_files::$sass_files"
+    echo "::set-output name=sass_files::${sass_files%?}"
 fi;
 
 if [[ $sass_files ]]; then
-# if [[ ! ${#ts_files[@]} -eq 0 ]]; then
-#     ts_files="$(printf '%s\n' "${ts_files[@]}")"
-    echo $ts_files
-    echo "::set-output name=ts_files::$ts_files"
+    echo "::set-output name=ts_files::${ts_files%?}"
 fi;
 
 if [[ $sass_files ]]; then
-# if [[ ! ${#js_files[@]} -eq 0 ]]; then
-#     js_files="$(printf '%s\n' "${js_files[@]}")"
-    echo $js_files
-    echo "::set-output name=js_files::$js_files"
+    echo "::set-output name=js_files::${js_files%?}"
 fi;
 
 if [[ $sass_files ]]; then
-# if [[ ! ${#html_files[@]} -eq 0 ]]; then
-#     html_files="$(printf '%s\n' "${html_files[@]}")"
-    echo $html_files
-    echo "::set-output name=html_files::$html_files"
+    echo "::set-output name=html_files::${html_files%?}"
 fi;
 
 if [[ $sass_files ]]; then
-# if [[ ! ${#svg_files[@]} -eq 0 ]]; then
-#     svg_files="$(printf '%s\n' "${svg_files[@]}")"
-    echo $svg_files
-    echo "::set-output name=svg_files::$svg_files"
+    echo "::set-output name=svg_files::${svg_files%?}"
 fi;
