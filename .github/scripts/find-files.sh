@@ -47,17 +47,25 @@ ${sass_destinations%?}
 fi;
 
 if [[ $ts_files ]]; then
-echo "ts_files=${ts_files%?}" >> $GITHUB_ENV;
+    echo "ts_files<<{delimiter}
+${ts_files%?}
+{delimiter}" >> $GITHUB_ENV;
 fi;
 
 if [[ $js_files ]]; then
-echo "js_files=${js_files%?}" >> $GITHUB_ENV;
+    echo "js_files<<{delimiter}
+${js_files%?}
+{delimiter}" >> $GITHUB_ENV;
 fi;
 
 if [[ $html_files ]]; then
-echo "html_files=${html_files%?}" >> $GITHUB_ENV;
+    echo "html_files<<{delimiter}
+${html_files%?}
+{delimiter}" >> $GITHUB_ENV;
 fi;
 
 if [[ $svg_files ]]; then
-echo "svg_files=${svg_files%?}" >> $GITHUB_ENV;
+    echo "svg_files<<{delimiter}
+${svg_files%?}
+{delimiter}" >> $GITHUB_ENV;
 fi;
