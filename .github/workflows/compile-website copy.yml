@@ -39,17 +39,27 @@ jobs:
         id: find-files
         run: ./.github/scripts/find-files.sh
 
-      - name: Commit update .gitignore
+      - name: Remove *.css from .gitignore
+        if: ${{ steps.find-files.outputs.sass_sources != '' }}
         run: |
-          sass_exist="${{steps.find-files.outputs.sass_sources}}";
+          gitignore_css=$(grep "^*.css$" ".gitignore")
+          if [[ "$gitignore_css" ]]; then
+            [[ "$gitignore_css" ]] && sed -i '' '/*\.css/d' ".gitignore";
+            git add .gitignore
+            git commit -m ":see_no_evil: Remove css from gitignore"
+            git push -uf origin $PUB_BRANCH
+          fi;
+
+      - name: Commit update .gitignore
+        if: ${{ steps.find-files.outputs.sass_sources != '' }}
+        run: |
           ts_exist="${{steps.find-files.outputs.ts_files}}";
           gitignore_css=$(grep "^*.css$" ".gitignore")
           gitignore_js=$(grep "^*.js$" ".gitignore")
-          if [[ ( "$sass_exist" && "$gitignore_css" ) || ( "$ts_exist" && "$gitignore_js" ) ]]; then
-            [[ "$gitignore_css" ]] && sed -i '' '/*\.css/d' ".gitignore";
+          if [[ "$gitignore_js" ]]; then
             [[ "$gitignore_js" ]] && sed -i '' '/*\.js/d' ".gitignore";
             git add .gitignore
-            git commit -m ":see_no_evil: Remove compiled file types"
+            git commit -m ":see_no_evil: Remove js from gitignore"
             git push -uf origin $PUB_BRANCH
           fi;
 
