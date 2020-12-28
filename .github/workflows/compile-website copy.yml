@@ -1,0 +1,55 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Compile Website
+
+on:
+  push:
+    branches: [ rebuild-worflow ]
+  workflow_dispatch:
+
+
+env: 
+  PUB_BRANCH: publish
+
+
+jobs:
+
+  prep-work:
+    runs-on: ubuntu-latest
+    
+    outputs:
+      # contains_sass: ${{ steps.find-files.outputs.contains_sass }}
+      sass_files: ${{ steps.find-files.outputs.sass_files }}
+      # contains_ts: ${{ steps.find-files.outputs.contains_ts }}
+      ts_files: ${{ steps.find-files.outputs.ts_files }}
+      # contains_js: ${{ steps.find-files.outputs.contains_js }}
+      js_files: ${{ steps.find-files.outputs.js_files }}
+      # contains_html: ${{ steps.find-files.outputs.contains_html }}
+      html_files: ${{ steps.find-files.outputs.html_files }}
+      # contains_svg: ${{ steps.find-files.outputs.contains_svg }}
+      svg_files: ${{ steps.find-files.outputs.svg_files }}
+    
+    env:
+      ignore: |
+        ./github
+      ignore-str:
+
+    steps:
+
+      - uses: actions/checkout@v2
+
+      - id: find-files
+        run: ./.github/scripts/find-files.sh
+
+
+  test-work:
+    runs-on: ubuntu-latest
+    needs: prep-work
+    steps:
+      - id: echo-files
+        run: |
+          echo "SASS files: ${{needs.prep-work.outputs.sass_files}}"
+          echo "TS files: ${{needs.prep-work.outputs.ts_files}}"
+          echo "JS files: ${{needs.prep-work.outputs.js_files}}"
+          echo "HTML files: ${{needs.prep-work.outputs.html_files}}"
+          echo "SVG files: ${{needs.prep-work.outputs.svg_files}}"
