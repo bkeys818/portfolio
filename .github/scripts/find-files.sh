@@ -1,4 +1,4 @@
-ignore=$'./node_modules\n./.github\n'
+### Find files to compile ###
 search_for() {
     if [[ $ignore ]]; then
         ignore_str='\( ';
@@ -11,13 +11,21 @@ search_for() {
         echo "$(eval "find . $1")";
     fi;
 }
-search_arg="-type f \( -name '*.scss' -not -name '_*.scss' \) -o \( -name '*.sass' -not -name '_*.sass' \) -o -name '*.ts' -o -name '*.js' -o -name '*.html' -o -name '*.svg'";
+
+search_arg="-type f \( -name '*.scss' -not -name '_*.scss' \) -o \( -name '*.sass' -not -name '_*.sass' \) \
+-o -name '*.ts' \
+-o -name '*.js' \
+-o -name '*.html' \
+-o -name '*.svg'";
+
 files=$(search_for "$search_arg");
 
 while IFS= read -r file; do
     case "$file" in
         *.scss | *.sass)
-            sass_files+="$file:";;
+            lb=$'\n';
+            sass_sources+="$file$lb";
+            sass_destinations+="${file%????}css$lb";;
         *.ts)
             ts_files+="$file:";;
         *.js)
@@ -30,17 +38,27 @@ while IFS= read -r file; do
 done <<< "$files"
 
 
-[[ ! -z "$sass_files" ]] && sass_files=${sass_files%?}
-# echo "::set-output name=sass_files::$sass_files"
+if [[ $sass_sources ]]; then
+    echo "sass_sources<<{delimiter}
+    ${sass_sources%?}
+    {delimiter}" >> $GITHUB_ENV;
+    echo "sass_destinations<<{delimiter}
+    ${sass_destinations%?}
+    {delimiter}" >> $GITHUB_ENV;
+fi;
 
-[[ ! -z "$ts_files" ]] && ts_files=${ts_files%?}
-# echo "::set-output name=ts_files::$ts_files"
+if [[ $ts_files ]]; then
+echo "ts_files=${ts_files%?}" >> $GITHUB_ENV;
+fi;
 
-[[ ! -z "$js_files" ]] && js_files=${js_files%?}
-# echo "::set-output name=js_files::$js_files"
+if [[ $js_files ]]; then
+echo "js_files=${js_files%?}" >> $GITHUB_ENV;
+fi;
 
-[[ ! -z "$html_files" ]] && html_files=${html_files%?}
-# echo "::set-output name=html_files::$html_files"
+if [[ $html_files ]]; then
+echo "html_files=${html_files%?}" >> $GITHUB_ENV;
+fi;
 
-[[ ! -z "$svg_files" ]] && svg_files=${svg_files%?}
-# echo "::set-output name=svg_files::$svg_files"
+if [[ $svg_files ]]; then
+echo "svg_files=${svg_files%?}" >> $GITHUB_ENV;
+fi;

@@ -1,23 +1,14 @@
 #!/bin/bash
 
-sources=""
-destinations=""
-lb=$'\n'
-
-for file in $(./.github/scripts/search-files.sh "-name *.scss -not -name _*.scss"); do
-    sources="$sources$lb$file";
-    css="${file%.*}.css"
-    destinations="$destinations$lb$css";
+lb=$'\n';
+export IFS=":";
+for file in $sass_files; do
+    sources+="$file$lb";
+    destinations+="${file%????}css$lb";
 done;
-
-continue=$( [[ $sources =~ ^[\S]+$ ]] && echo true || echo false )
-
-echo "continue=$continue" >> $GITHUB_ENV
-
 echo "sources<<{delimiter}
-${sources}
+${sources%?}
 {delimiter}" >> $GITHUB_ENV
-
 echo "destinations<<{delimiter}
-${destinations}
+${destinations%?}
 {delimiter}" >> $GITHUB_ENV
