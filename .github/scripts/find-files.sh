@@ -38,30 +38,28 @@ done <<< "$files"
 
 
 if [[ $sass_sources ]]; then
-    # sass_sources=${sass_sources%?}
-    # echo "::set-output name=sass_sources::${sass_sources//$'\n'/'%0A'}"
-    # sass_destinations=${sass_destinations%?}
-    # echo "::set-output name=sass_destinations::${sass_destinations//$'\n'/'%0A'}"
-    echo "${sass_sources%?}"
-    echo "${sass_destinations%?}"
+    sass_sources=${sass_sources%?}
+    echo "::set-output name=sass_sources::${sass_sources//$'\n'/'%0A'}"
+    sass_destinations=${sass_destinations%?}
+    echo "::set-output name=sass_destinations::${sass_destinations//$'\n'/'%0A'}"
 fi;
 
-# if [[ $ts_files ]]; then
-#     ts_files=${ts_files%?}
-#     echo "::set-output name=ts_files::${ts_files//$'\n'/'%0A'}"
-# fi;
+if [[ $ts_files ]]; then
+    ts_files=${ts_files%?}
+    echo "::set-output name=ts_files::${ts_files//$'\n'/'%0A'}"
+fi;
 
-# if [[ $js_files ]]; then
-#     js_files=${js_files%?}
-#     echo "::set-output name=js_files::${js_files//$'\n'/'%0A'}"
-# fi;
+if [[ $js_files ]]; then
+    js_files=${js_files%?}
+    echo "::set-output name=js_files::${js_files//$'\n'/'%0A'}"
+fi;
 
-# if [[ $html_files ]]; then
-#     html_files=${html_files%?}
-#     echo "::set-output name=html_files::${html_files//$'\n'/'%0A'}"
-# fi;
+if [[ $html_files ]]; then
+    html_files=${html_files%?}
+    echo "::set-output name=html_files::${html_files//$'\n'/'%0A'}"
+fi;
 
-# if [[ $svg_files ]]; then
-#     svg_files=${svg_files%?}
-#     echo "::set-output name=svg_files::${svg_files//$'\n'/'%0A'}"
-# fi;
+if [[ $svg_files ]]; then
+    svg_files=${svg_files%?}
+    echo "::set-output name=svg_files::${svg_files//$'\n'/'%0A'}"
+fi;
