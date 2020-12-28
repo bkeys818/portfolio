@@ -38,21 +38,27 @@ jobs:
           git branch -f $PUB_BRANCH
 
       - name: Compile Sass 
-        if: ${{ hashFiles('**/*.sass', '!**_*/*.sass', '**/*.scss', '!**/_*.scss', '!**/.github/**', '!**/node_modules/**') }}
-        run: echo "Contains Sass"
+        # if: ${{ hashFiles('**/*.sass', '!**_*/*.sass', '**/*.scss', '!**/_*.scss', '!**/.github/**', '!**/node_modules/**') }}
+        run: |
+          echo "\"$sass_sources\""
+          echo "\"$sass_destinations\""
 
       - name: Compile Typescript
-        if: ${{ hashFiles('**/*.ts', '!**/.github/**', '!**/node_modules/**') }}
+        if: ${{ env.ts_files != '' }}
+        # if: ${{ hashFiles('**/*.ts', '!**/.github/**', '!**/node_modules/**') }}
         run: echo "\"$ts_files\""
 
       - name: Minify Javascript
-        if: ${{ hashFiles('**/*.js', '!**/.github/**', '!**/node_modules/**') }}
+        if: ${{ env.js_files != '' }}
+        # if: ${{ hashFiles('**/*.js', '!**/.github/**', '!**/node_modules/**') }}
         run: echo "\"$js_files\""
 
       - name: Minify HTML
-        if: ${{ hashFiles('**/*.html', '!**/.github/**', '!**/node_modules/**') }}
+        if: ${{ env.html_files != '' }}
+        # if: ${{ hashFiles('**/*.html', '!**/.github/**', '!**/node_modules/**') }}
         run: echo "\"$html_files\""
 
       - name: Minify SVG
-        if: ${{ hashFiles('**/*.svg', '!**/.github/**', '!**/node_modules/**') }}
+        if: ${{ env.svg_files != '' }}
+        # if: ${{ hashFiles('**/*.svg', '!**/.github/**', '!**/node_modules/**') }}
         run: echo "\"$svg_files\""
