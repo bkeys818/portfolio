@@ -47,9 +47,7 @@ jobs:
           retention-days: 1
           path: |
             **/*.sass
-            !**/_*.sass
             **/*.scss
-            !**/_*.scss
         
       - name: Upload Typescript files
         if: ${{ steps.find-files.outputs.ts_files != '' }}
