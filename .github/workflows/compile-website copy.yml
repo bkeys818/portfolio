@@ -44,7 +44,7 @@ jobs:
         run: |
           gitignore_css=$(grep "^*.css$" ".gitignore")
           if [[ "$gitignore_css" ]]; then
-            [[ "$gitignore_css" ]] && sed -i '' '/*\.css/d' ".gitignore";
+            [[ "$gitignore_css" ]] && sed -i "" "/*\.css/d" ".gitignore";
             git add .gitignore
             git commit -m ":see_no_evil: Remove css from gitignore"
             git push -uf origin $PUB_BRANCH
@@ -57,7 +57,7 @@ jobs:
           gitignore_css=$(grep "^*.css$" ".gitignore")
           gitignore_js=$(grep "^*.js$" ".gitignore")
           if [[ "$gitignore_js" ]]; then
-            [[ "$gitignore_js" ]] && sed -i '' '/*\.js/d' ".gitignore";
+            [[ "$gitignore_js" ]] && sed -i "" "/*\.js/d" ".gitignore";
             git add .gitignore
             git commit -m ":see_no_evil: Remove js from gitignore"
             git push -uf origin $PUB_BRANCH
