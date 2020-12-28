@@ -28,7 +28,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - naem: Find files
+      - name: Find files
         run: ./.github/scripts/find-files.sh
 
       - name: Create new branch
