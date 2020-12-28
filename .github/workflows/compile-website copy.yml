@@ -29,19 +29,19 @@ jobs:
       - uses: actions/checkout@v2
 
       - run: echo "Contains Sass"
-        if: ${{ hashFiles('**.sass', '!**_*.sass', '**.scss', '!**_*.scss') }}
+        if: ${{ hashFiles('**/*.sass', '!**_*/*.sass', '**/*.scss', '!**/_*.scss') }}
 
       - run: echo "Contains TS"
-        if: ${{ hashFiles('**.ts') }}
+        if: ${{ hashFiles('**/*.ts') }}
 
       - run: echo "Contains JS"
-        if: ${{ hashFiles('**.js') }}
+        if: ${{ hashFiles('**/*.js') }}
 
       - run: echo "Contains HTML"
-        if: ${{ hashFiles('**.html') }}
+        if: ${{ hashFiles('**/*.html') }}
 
       - run: echo "Contains SVG"
-        if: ${{ hashFiles('**.svg') }}
+        if: ${{ hashFiles('**/*.svg') }}
 
       # - id: find-files
       #   run: ./.github/scripts/find-files.sh
