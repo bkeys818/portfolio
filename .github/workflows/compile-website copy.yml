@@ -39,67 +39,112 @@ jobs:
           git config user.email github-actions@github.com
           git branch -f $PUB_BRANCH
 
-      - name: Upload Sass-files
+      - name: Upload Sass files
+        if: ${{ steps.find-files.outputs.sass_sources != '' }}
         uses: actions/upload-artifact@v2
         with:
-          name: files-to-compile
+          name: sass-files
           retention-days: 1
           path: |
             **/*.sass
-            !**/*.sass
+            !**/_*.sass
             **/*.scss
-            !**/*.scss
-            **/*.ts
-            **/*.js
-            **/*.html
-            **/*.svg
-          
+            !**/_*.scss
+        
+      - name: Upload Typescript files
+        if: ${{ steps.find-files.outputs.ts_files != '' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: ts-files
+          retention-days: 1
+          path: **/*.ts
+
+      - name: Upload Javascript files
+        if: ${{ steps.find-files.outputs.js_files != '' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: js-files
+          retention-days: 1
+          path: **/*.js
+
+      - name: Upload HTML files
+        if: ${{ steps.find-files.outputs.html_files != '' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: html-files
+          retention-days: 1
+          path: **/*.html
+
+      - name: Upload SVG files
+        if: ${{ steps.find-files.outputs.svg_files != '' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: svg-files
+          retention-days: 1
+          path: **/*.svg
+
+
   compile-sass:
     runs-on: ubuntu-latest
     needs: find-files
     if: ${{ needs.find-files.outputs.sass_sources != '' }}
     steps:
-      - uses: actions/download-artifact@v2
+      - name: Download artifact w/ Sass files
+        uses: actions/download-artifact@v2
         with:
-          name: files-to-compile
+          name: sass-files
+
+      - name: Compile Sass 
+        uses: bkeys818/sass-build@master
+        with:
+          source: |
+            ${{needs.find-files.outputs.sass_sources}}
+          destination: |
+            ${{needs.find-files.outputs.sass_destinations}}
+
+      - name: Upload Compiled files
+        uses: actions/upload-artifact@v2
+        with:
+          name: sass-files
+          retention-days: 1
+          path: **/*.css
+
+
+  compile-ts:
+    runs-on: ubuntu-latest
+    needs: find-files
+    if: ${{ needs.find-files.outputs.ts_files != '' }}
+    steps:
+      - name: Download artifact w/ Typescript files
+        uses: actions/download-artifact@v2
+        with:
+          name: ts-files
+      
+      - name: Compile TypeScript
+        run: |
+          while IFS= read -r file; do
+            tsc $file
+          done <<< "${{needs.find-files.outputs.ts_files}}"
+
+      - name: Upload Compiled files
+        uses: actions/upload-artifact@v2
+        with:
+          name: ts-files
+          retention-days: 1
+          path: **/*.js
+
+  make-changes:
+    runs-on: ubuntu-latest
+    needs: [compile-sass, compile-ts]
+    steps:
+      - name: Download artifact w/ Sass files
+        uses: actions/download-artifact@v2
+        with:
+          name: sass-files
+
+      - name: Download artifact w/ Typescript files
+        uses: actions/download-artifact@v2
+        with:
+          name: ts-files
+      
       - run: ls -1R
-
-
-
-
-
-
-      # - name: Compile Sass 
-      #   if: ${{ env.sass_sources != '' }}
-      #   uses: bkeys818/sass-build@master
-      #   with:
-      #     source: |
-      #       ${{env.sass_sources}}
-      #     destination: |
-      #       ${{env.sass_destinations}}
-
-      # - name: Compile Typescript
-      #   if: ${{ env.ts_files != '' }}
-      #   run: echo "\"$ts_files\""
-
-      # - name: Minify Javascript
-      #   if: ${{ env.js_files != '' }}
-      #   run: echo "\"$js_files\""
-
-      # - name: Minify HTML
-      #   if: ${{ env.html_files != '' }}
-      #   run: echo "\"$html_files\""
-
-      # - name: Minify SVG
-      #   if: ${{ env.svg_files != '' }}
-      #   run: echo "\"$svg_files\""
-
-      # - run: ls -1R
-
-      # - uses: actions/upload-artifact@v2
-      #   with:
-      #     name: my-artifact
-      #     path: |
-      #       path/output/bin/
-      #       path/output/test-results
-      #       !path/**/*.tmp
