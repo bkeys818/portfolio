@@ -50,11 +50,9 @@ jobs:
             git push -uf origin $PUB_BRANCH
           fi;
 
-      - name: Commit update .gitignore
-        if: ${{ steps.find-files.outputs.sass_sources != '' }}
+      - name: Remove *.js from .gitignore
+        if: ${{ steps.find-files.outputs.ts_files != '' }}
         run: |
-          ts_exist="${{steps.find-files.outputs.ts_files}}";
-          gitignore_css=$(grep "^*.css$" ".gitignore")
           gitignore_js=$(grep "^*.js$" ".gitignore")
           if [[ "$gitignore_js" ]]; then
             [[ "$gitignore_js" ]] && sed -i "/*\.js/d" ".gitignore";
