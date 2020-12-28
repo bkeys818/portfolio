@@ -17,45 +17,50 @@ files=$(search_for "$search_arg");
 for file in $files; do
     case $file in
         *.scss | *.sass)
-            sass_files+=($file);;
+            sass_files+="$file$'\n'";;
         *.ts)
-            ts_files+=($file);;
+            ts_files+="$file$'\n'";;
         *.js)
-            js_files+=($file);;
+            js_files+="$file$'\n'";;
         *.html)
-            html_files+=($file);;
+            html_files+="$file$'\n'";;
         *.svg)
-            svg_files+=($file);;
+            svg_files+="$file$'\n'";;
     esac
 done;
 
 
-if [[ ! ${#sass_files[@]} -eq 0 ]]; then
-    sass_files="$(printf '%s\n' "${sass_files[@]}")"
+if [[ $sass_files ]]; then
+# if [[ ! ${#sass_files[@]} -eq 0 ]]; then
+#     sass_files="$(printf '%s\n' "${sass_files[@]}")"
     echo $sass_files
     echo "::set-output name=sass_files::$sass_files"
 fi;
 
-if [[ ! ${#ts_files[@]} -eq 0 ]]; then
-    ts_files="$(printf '%s\n' "${ts_files[@]}")"
+if [[ $sass_files ]]; then
+# if [[ ! ${#ts_files[@]} -eq 0 ]]; then
+#     ts_files="$(printf '%s\n' "${ts_files[@]}")"
     echo $ts_files
     echo "::set-output name=ts_files::$ts_files"
 fi;
 
-if [[ ! ${#js_files[@]} -eq 0 ]]; then
-    js_files="$(printf '%s\n' "${js_files[@]}")"
+if [[ $sass_files ]]; then
+# if [[ ! ${#js_files[@]} -eq 0 ]]; then
+#     js_files="$(printf '%s\n' "${js_files[@]}")"
     echo $js_files
     echo "::set-output name=js_files::$js_files"
 fi;
 
-if [[ ! ${#html_files[@]} -eq 0 ]]; then
-    html_files="$(printf '%s\n' "${html_files[@]}")"
+if [[ $sass_files ]]; then
+# if [[ ! ${#html_files[@]} -eq 0 ]]; then
+#     html_files="$(printf '%s\n' "${html_files[@]}")"
     echo $html_files
     echo "::set-output name=html_files::$html_files"
 fi;
 
-if [[ ! ${#svg_files[@]} -eq 0 ]]; then
-    svg_files="$(printf '%s\n' "${svg_files[@]}")"
+if [[ $sass_files ]]; then
+# if [[ ! ${#svg_files[@]} -eq 0 ]]; then
+#     svg_files="$(printf '%s\n' "${svg_files[@]}")"
     echo $svg_files
     echo "::set-output name=svg_files::$svg_files"
 fi;
