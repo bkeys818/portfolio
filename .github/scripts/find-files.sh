@@ -30,27 +30,17 @@ while IFS= read -r file; do
 done <<< "$files"
 
 
-if [[ $sass_files ]]; then
-    echo ${sass_files%?}
-    echo "::set-output name=sass_files::${sass_files%?}"
-fi;
+[[ $sass_files ]] && sass_files=${sass_files%?} || sass_files="null"
+echo "::set-output name=sass_files::$sass_files"
 
-if [[ $sass_files ]]; then
-    echo ${ts_files%?}
-    echo "::set-output name=ts_files::${ts_files%?}"
-fi;
+[[ $sass_files ]] && ts_files=${ts_files%?} || ts_files="null"
+echo "::set-output name=ts_files::$ts_files"
 
-if [[ $sass_files ]]; then
-    echo ${js_files%?}
-    echo "::set-output name=js_files::${js_files%?}"
-fi;
+[[ $sass_files ]] && js_files=${js_files%?} || js_files="null"
+echo "::set-output name=js_files::$js_files"
 
-if [[ $sass_files ]]; then
-    echo ${html_files%?}
-    echo "::set-output name=html_files::${html_files%?}"
-fi;
+[[ $sass_files ]] && html_files=${html_files%?} || html_files="null"
+echo "::set-output name=html_files::$html_files"
 
-if [[ $sass_files ]]; then
-    echo ${svg_files%?}
-    echo "::set-output name=svg_files::${svg_files%?}"
-fi;
+[[ $sass_files ]] && svg_files=${svg_files%?} || svg_files="null"
+echo "::set-output name=svg_files::$svg_files"
