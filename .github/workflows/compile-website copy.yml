@@ -43,11 +43,11 @@ jobs:
         run: |
           sass_exist="${{steps.find-files.outputs.sass_sources}}";
           ts_exist="${{steps.find-files.outputs.ts_files}}";
-          gitignore_css=$( [[ "$sass_exist" != "" && $(grep "^*.css$" ".gitignore") ]] && echo " " || echo "" )
-          gitignore_js=$( [[ "$ts_exist" != "" && $(grep "^*.js$" ".gitignore") ]] && echo " " || echo "" )
-          if [[ $gitignore_css || $gitignore_js ]]; then
-            [[ $gitignore_css ]] && sed -i '' '/*\.css/d' ".gitignore";
-            [[ $gitignore_js ]] && sed -i '' '/*\.js/d' ".gitignore";
+          gitignore_css=$(grep "^*.css$" ".gitignore")
+          gitignore_js=$(grep "^*.js$" ".gitignore")
+          if [[ ( "$sass_exist" && "$gitignore_css" ) || ( "$ts_exist" && "$gitignore_js" ) ]]; then
+            [[ "$gitignore_css" ]] && sed -i '' '/*\.css/d' ".gitignore";
+            [[ "$gitignore_js" ]] && sed -i '' '/*\.js/d' ".gitignore";
             git add .gitignore
             git commit -m ":see_no_evil: Remove compiled file types"
             git push -uf origin $PUB_BRANCH
