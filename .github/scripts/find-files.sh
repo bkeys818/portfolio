@@ -1,4 +1,4 @@
-### Find files to compile ###
+### Predefined Elements ###
 search_for() {
     if [[ $ignore ]]; then
         ignore_str='\( ';
@@ -12,6 +12,7 @@ search_for() {
     fi;
 }
 
+### Find Files to Compile ###
 search_arg="-type f \( -name '*.scss' -not -name '_*.scss' \) -o \( -name '*.sass' -not -name '_*.sass' \) \
 -o -name '*.ts' \
 -o -name '*.js' \
@@ -19,21 +20,19 @@ search_arg="-type f \( -name '*.scss' -not -name '_*.scss' \) -o \( -name '*.sas
 -o -name '*.svg'";
 
 files=$(search_for "$search_arg");
-
 while IFS= read -r file; do
     case "$file" in
         *.scss | *.sass)
-            lb=$'\n';
-            sass_sources+="$file$lb";
-            sass_destinations+="${file%????}css$lb";;
+            sass_sources+="$file"$'\n';
+            sass_destinations+="${file%????}css"$'\n';;
         *.ts)
-            ts_files+="$file:";;
+            ts_files+="$file"$'\n';;
         *.js)
-            js_files+="$file:";;
+            js_files+="$file"$'\n';;
         *.html)
-            html_files+="$file:";;
+            html_files+="$file"$'\n';;
         *.svg)
-            svg_files+="$file:";;
+            svg_files+="$file"$'\n';;
     esac
 done <<< "$files"
 
