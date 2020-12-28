@@ -57,7 +57,7 @@ jobs:
         with:
           name: ts-files
           retention-days: 1
-          path: **/*.ts
+          path: '**/*.ts'
 
       - name: Upload Javascript files
         if: ${{ steps.find-files.outputs.js_files != '' }}
@@ -65,7 +65,7 @@ jobs:
         with:
           name: js-files
           retention-days: 1
-          path: **/*.js
+          path: '**/*.js'
 
       - name: Upload HTML files
         if: ${{ steps.find-files.outputs.html_files != '' }}
@@ -73,7 +73,7 @@ jobs:
         with:
           name: html-files
           retention-days: 1
-          path: **/*.html
+          path: '**/*.html'
 
       - name: Upload SVG files
         if: ${{ steps.find-files.outputs.svg_files != '' }}
@@ -81,7 +81,7 @@ jobs:
         with:
           name: svg-files
           retention-days: 1
-          path: **/*.svg
+          path: '**/*.svg'
 
 
   compile-sass:
@@ -107,7 +107,7 @@ jobs:
         with:
           name: sass-files
           retention-days: 1
-          path: **/*.css
+          path: '**/*.css'
 
 
   compile-ts:
@@ -131,7 +131,7 @@ jobs:
         with:
           name: ts-files
           retention-days: 1
-          path: **/*.js
+          path: '**/*.js'
 
   make-changes:
     runs-on: ubuntu-latest
