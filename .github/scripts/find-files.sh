@@ -17,15 +17,15 @@ files=$(search_for "$search_arg");
 for file in $files; do
     case $file in
         *.scss | *.sass)
-            sass_files+="$file$'\n'";;
+            sass_files+="$file"$'\n';;
         *.ts)
-            ts_files+="$file$'\n'";;
+            ts_files+="$file"$'\n';;
         *.js)
-            js_files+="$file$'\n'";;
+            js_files+="$file"$'\n';;
         *.html)
-            html_files+="$file$'\n'";;
+            html_files+="$file"$'\n';;
         *.svg)
-            svg_files+="$file$'\n'";;
+            svg_files+="$file"$'\n';;
     esac
 done;
 
