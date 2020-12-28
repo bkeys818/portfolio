@@ -14,20 +14,18 @@ search_for() {
 search_arg="-type f \( -name '*.scss' -not -name '_*.scss' \) -o \( -name '*.sass' -not -name '_*.sass' \) -o -name '*.ts' -o -name '*.js' -o -name '*.html' -o -name '*.svg'";
 files=$(search_for "$search_arg");
 
-lb=$'\n'
-
 while IFS= read -r file; do
     case "$file" in
         *.scss | *.sass)
-            sass_files+="$file$lb";;
+            sass_files+="$file:";;
         *.ts)
-            ts_files+="$file$lb";;
+            ts_files+="$file"";;
         *.js)
-            js_files+="$file$lb";;
+            js_files+="$file"";;
         *.html)
-            html_files+="$file$lb";;
+            html_files+="$file:";;
         *.svg)
-            svg_files+="$file$lb";;
+            svg_files+="$file:";;
     esac
 done <<< "$files"
 
