@@ -42,17 +42,17 @@ jobs:
         run: echo "Contains Sass"
 
       - name: Compile Typescript
-        if: ${{ hashFiles('**/*.ts', !**/.github/**', '!**/node_modules/**') }}
+        if: ${{ hashFiles('**/*.ts', '!**/.github/**', '!**/node_modules/**') }}
         run: echo "\"$ts_files\""
 
       - name: Minify Javascript
-        if: ${{ hashFiles('**/*.js', !**/.github/**', '!**/node_modules/**') }}
+        if: ${{ hashFiles('**/*.js', '!**/.github/**', '!**/node_modules/**') }}
         run: echo "\"$js_files\""
 
       - name: Minify HTML
-        if: ${{ hashFiles('**/*.html', !**/.github/**', '!**/node_modules/**') }}
+        if: ${{ hashFiles('**/*.html', '!**/.github/**', '!**/node_modules/**') }}
         run: echo "\"$html_files\""
 
       - name: Minify SVG
-        if: ${{ hashFiles('**/*.svg', !**/.github/**', '!**/node_modules/**') }}
+        if: ${{ hashFiles('**/*.svg', '!**/.github/**', '!**/node_modules/**') }}
         run: echo "\"$svg_files\""
