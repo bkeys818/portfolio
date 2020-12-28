@@ -30,17 +30,17 @@ while IFS= read -r file; do
 done <<< "$files"
 
 
-[[ -z "$sass_files" ]] && sass_files=null || sass_files=${sass_files%?}
+[[ ! -z "$sass_files" ]] && sass_files=${sass_files%?}
 # echo "::set-output name=sass_files::$sass_files"
 
-[[ -z "$ts_files" ]] && ts_files=null || ts_files=${ts_files%?}
+[[ ! -z "$ts_files" ]] && ts_files=${ts_files%?}
 # echo "::set-output name=ts_files::$ts_files"
 
-[[ -z "$js_files" ]] && js_files=null || js_files=${js_files%?}
+[[ ! -z "$js_files" ]] && js_files=${js_files%?}
 # echo "::set-output name=js_files::$js_files"
 
-[[ -z "$html_files" ]] && html_files=null || html_files=${html_files%?}
+[[ ! -z "$html_files" ]] && html_files=${html_files%?}
 # echo "::set-output name=html_files::$html_files"
 
-[[ -z "$svg_files" ]] && svg_files=null || svg_files=${svg_files%?}
+[[ ! -z "$svg_files" ]] && svg_files=${svg_files%?}
 # echo "::set-output name=svg_files::$svg_files"
