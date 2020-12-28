@@ -135,6 +135,7 @@ jobs:
 
   make-changes:
     runs-on: ubuntu-latest
+    if: always()
     needs: [compile-sass, compile-ts]
     steps:
       - name: Download artifact w/ Sass files
