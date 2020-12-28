@@ -44,43 +44,48 @@ jobs:
       destinations:
     
     steps:
-      - name: Checkout new branch
-        if: $${{ needs.find-files.outputs.sass_files == '' }}
-        uses: actions/checkout@v2
-        with:
-          ref: ${{env.PUB_BRANCH}}
+#       - name: Checkout new branch
+#         if: $${{ needs.find-files.outputs.sass_files }}
+        - uses: actions/checkout@v2
+          with:
+            ref: ${{env.PUB_BRANCH}}
 
-      - name: Find sass files & create .css paths
-        if: $${{ needs.find-files.outputs.sass_files == '' }}
-        run: |
-          lb=$'\n';
-          export IFS=":";
-          for file in $sass_files; do
-              sources+="$file$lb";
-              destinations+="${file%????}css$lb";
-          done;
-          echo "sources<<{delimiter}
-          ${sources%?}
-          {delimiter}" >> $GITHUB_ENV
-          echo "destinations<<{delimiter}
-          ${destinations%?}
-          {delimiter}" >> $GITHUB_ENV
+        - name: Test
+          if: $${{ needs.find-files.outputs.sass_files }}
+          run: echo "\"${{ needs.find-files.outputs.sass_files }}\""
 
-      - name: Compile .css from .scss files
-        if: $${{ needs.find-files.outputs.sass_files == '' }}
-        uses: bkeys818/sass-build@master
-        with:
-          source: |
-            ${{env.sources}}
-          destination: |
-            ${{env.destinations}}
 
-      - name: Remove .scss files and push changes
-        if: $${{ needs.find-files.outputs.sass_files == '' }}
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git rm *.scss
-          git ls-files
-# git commit -m "Compile sass"
+#       - name: Find sass files & create .css paths
+#         if: $${{ needs.find-files.outputs.sass_files }}
+#         run: |
+#           lb=$'\n';
+#           export IFS=":";
+#           for file in $sass_files; do
+#               sources+="$file$lb";
+#               destinations+="${file%????}css$lb";
+#           done;
+#           echo "sources<<{delimiter}
+#           ${sources%?}
+#           {delimiter}" >> $GITHUB_ENV
+#           echo "destinations<<{delimiter}
+#           ${destinations%?}
+#           {delimiter}" >> $GITHUB_ENV
+
+#       - name: Compile .css from .scss files
+#         if: $${{ needs.find-files.outputs.sass_files }}
+#         uses: bkeys818/sass-build@master
+#         with:
+#           source: |
+#             ${{env.sources}}
+#           destination: |
+#             ${{env.destinations}}
+
+#       - name: Remove .scss files and push changes
+#         if: $${{ needs.find-files.outputs.sass_files }}
+#         run: |
+#           git config user.name github-actions
+#           git config user.email github-actions@github.com
+#           git add .
+#           git rm *.scss
+#           git ls-files
+# # git commit -m "Compile sass"
