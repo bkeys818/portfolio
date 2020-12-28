@@ -45,7 +45,7 @@ jobs:
     needs: find-files
     if: ${{ needs.find-files.outputs.sass_sources != '' }}
     steps:
-      -run: echo "\"${{needs.find-files.outputs.sass_sources}}\""
+      - run: echo "\"${{needs.find-files.outputs.sass_sources}}\""
 
 
 
