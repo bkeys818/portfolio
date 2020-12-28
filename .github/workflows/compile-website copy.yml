@@ -29,15 +29,22 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Find files
-        id: find-files
-        run: ./.github/scripts/find-files.sh
-
       - name: Create new branch
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git branch -f $PUB_BRANCH
+
+      - name: Find files
+        id: find-files
+        run: ./.github/scripts/find-files.sh
+
+      - name: Commit update .gitignore
+        if: ${{ env.update_gitignore != '' }}
+        run: |
+          git add .gitignore
+          git commit -m ":see_no_evil: Remove compiled file types"
+          git push -uf origin $PUB_BRANCH
 
       - name: Upload Sass files
         if: ${{ steps.find-files.outputs.sass_sources != '' }}
@@ -118,11 +125,22 @@ jobs:
         with:
           name: ts-files
       
-      - name: Compile TypeScript
+      - name: Cache Primes
+        id: cache-minify
+        uses: actions/cache@v2
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-minify
+
+      - name: Install minify
+        if: steps.cache-minify.outputs.cache-hit != 'true'
+        run: npm install minify
+    
+      - name: Compile Typescript
         run: |
           while IFS= read -r file; do
-            echo "$file"
             tsc "$file"
+            minify "${file%??}js" >> "${file%??}js"
           done <<< "${{needs.find-files.outputs.ts_files}}"
 
       - name: Upload Compiled files
@@ -131,6 +149,94 @@ jobs:
           name: complete
           retention-days: 1
           path: '**/*.js'
+
+
+  minify-js-and-html:
+    runs-on: ubuntu-latest
+    needs: find-files
+    if: ${{ needs.find-files.outputs.js_files != '' || needs.find-files.outputs.html_files != '' }}
+    steps:
+      - name: Download artifact w/ Javascript files
+        if: ${{ needs.find-files.outputs.js_files != '' }}
+        uses: actions/download-artifact@v2
+        with:
+          name: js-files
+
+      - name: Download artifact w/ HTML files
+        if: ${{ needs.find-files.outputs.html_files != '' }}
+        uses: actions/download-artifact@v2
+        with:
+          name: html-files
+      
+      - name: Cache minify
+        id: cache-minify
+        uses: actions/cache@v2
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-minify
+
+      - name: Install minify
+        if: steps.cache-minify.outputs.cache-hit != 'true'
+        run: npm install minify
+
+      - name: Minify Javacript
+        if: ${{ needs.find-files.outputs.js_files != '' }}
+        run: |
+          while IFS= read -r file; do
+            ./node_modules/.bin/minify "$file" >> "$file"
+          done <<< "${{needs.find-files.outputs.js_files}}"
+
+      - name: Minify HTML
+        if: ${{ needs.find-files.outputs.html_files != '' }}      
+        run: |
+          while IFS= read -r file; do
+            ./node_modules/.bin/minify "$file" >> "$file"
+          done <<< "${{needs.find-files.outputs.html_files}}"
+
+      - name: Upload Compiled files
+        uses: actions/upload-artifact@v2
+        with:
+          name: complete
+          retention-days: 1
+          path: |
+            '**/*.js'
+            '**/*.html'
+
+
+  minify-svg:
+    runs-on: ubuntu-latest
+    needs: find-files
+    if: ${{ needs.find-files.outputs.svg_files != '' }}
+    steps:
+      - name: Download artifact w/ SVG files
+        uses: actions/download-artifact@v2
+        with:
+          name: svg-files
+      
+      - name: Cache SVGO
+        id: cache-svgo
+        uses: actions/cache@v2
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-svgo
+
+      - name: Install svgo
+        if: steps.cache-svgo.outputs.cache-hit != 'true'
+        run: npm install svgo
+
+      - name: Minify SVG
+        run: |
+          while IFS= read -r file; do
+            ./node_modules/.bin/svgo "$file" >> "$file"
+          done <<< "${{needs.find-files.outputs.svg_files}}"
+
+      - name: Upload Compiled files
+        uses: actions/upload-artifact@v2
+        with:
+          name: complete
+          retention-days: 1
+          path: |
+            '**/*.svg'
 
   make-changes:
     runs-on: ubuntu-latest
