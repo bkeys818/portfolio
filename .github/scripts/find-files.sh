@@ -1,10 +1,4 @@
 ### Predefined Elements ###
-if [[ $ignore ]]; then
-    echo "ignore: $ignore"
-else
-    echo "No value for ignore found"
-fi;
-
 search_for() {
     if [[ $ignore ]]; then
         ignore_str='\( ';
@@ -58,9 +52,6 @@ fi;
 if [[ $js_files ]]; then
     js_files=${js_files%?}
     echo "::set-output name=js_files::${js_files//$'\n'/'%0A'}"
-#     echo "js_files<<{delimiter}
-# ${js_files%?}
-# {delimiter}" >> $GITHUB_ENV;
 fi;
 
 if [[ $html_files ]]; then
