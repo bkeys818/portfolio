@@ -38,7 +38,7 @@ jobs:
 
   compile-sass:
     runs-on: ubuntu-latest
-    if: hashFiles( '**.sass', '!**_*.sass', '**.scss', '!**_*.scss' )
+    if: ${{ hashFiles( '**.sass', '!**_*.sass', '**.scss', '!**_*.scss' ) }}
     needs: [find-files]
     env: 
       sources:
