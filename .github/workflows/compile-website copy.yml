@@ -32,11 +32,13 @@ jobs:
       - name: Find files
         run: ./.github/scripts/find-files.sh
 
-      - name: Create new branch
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git branch -f $PUB_BRANCH
+      - run: echo "\"${{steps.find-files.outputs.sass_sources}}\""
+
+      # - name: Create new branch
+      #   run: |
+      #     git config user.name github-actions
+      #     git config user.email github-actions@github.com
+      #     git branch -f $PUB_BRANCH
       #     git checkout
 
   
