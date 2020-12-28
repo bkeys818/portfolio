@@ -30,6 +30,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Find files
+        id: find-files
         run: ./.github/scripts/find-files.sh
 
       - run: echo "\"${{steps.find-files.outputs.sass_sources}}\""
