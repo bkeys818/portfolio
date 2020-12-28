@@ -1,4 +1,10 @@
 ### Predefined Elements ###
+if [[ $ignore ]]; then
+    echo "ignore: $ignore"
+else
+    echo "No value for ignore found"
+fi;
+
 search_for() {
     if [[ $ignore ]]; then
         ignore_str='\( ';
@@ -39,32 +45,19 @@ done <<< "$files"
 
 if [[ $sass_sources ]]; then
     sass_sources=${sass_sources%?}
-    sass_sources="${sass_sources//$'\n'/'%0A'}"
-    echo "::set-output name=sass_sources::$sass_sources"
+    echo "::set-output name=sass_sources::${sass_sources//$'\n'/'%0A'}"
     sass_desinations=${sass_desinations%?}
-    sass_desinations="${sass_desinations//$'\n'/'%0A'}"
-    echo "::set-output name=sass_desinations::$sass_desinations"
-#     echo "sass_sources<<{delimiter}
-# ${sass_sources%?}
-# {delimiter}" >> $GITHUB_ENV;
-#     echo "sass_destinations<<{delimiter}
-# ${sass_destinations%?}
-# {delimiter}" >> $GITHUB_ENV;
+    echo "::set-output name=sass_desinations::${sass_desinations//$'\n'/'%0A'}"
 fi;
 
 if [[ $ts_files ]]; then
     ts_files=${ts_files%?}
-    ts_files="${ts_files//$'\n'/'%0A'}"
-    echo "::set-output name=ts_files::$ts_files"
-#     echo "ts_files<<{delimiter}
-# ${ts_files%?}
-# {delimiter}" >> $GITHUB_ENV;
+    echo "::set-output name=ts_files::${ts_files//$'\n'/'%0A'}"
 fi;
 
 if [[ $js_files ]]; then
     js_files=${js_files%?}
-    js_files="${js_files//$'\n'/'%0A'}"
-    echo "::set-output name=js_files::$js_files"
+    echo "::set-output name=js_files::${js_files//$'\n'/'%0A'}"
 #     echo "js_files<<{delimiter}
 # ${js_files%?}
 # {delimiter}" >> $GITHUB_ENV;
@@ -72,18 +65,10 @@ fi;
 
 if [[ $html_files ]]; then
     html_files=${html_files%?}
-    html_files="${html_files//$'\n'/'%0A'}"
-    echo "::set-output name=html_files::$html_files"
-#     echo "html_files<<{delimiter}
-# ${html_files%?}
-# {delimiter}" >> $GITHUB_ENV;
+    echo "::set-output name=html_files::${html_files//$'\n'/'%0A'}"
 fi;
 
 if [[ $svg_files ]]; then
     svg_files=${svg_files%?}
-    svg_files="${svg_files//$'\n'/'%0A'}"
-    echo "::set-output name=svg_files::$svg_files"
-#     echo "svg_files<<{delimiter}
-# ${svg_files%?}
-# {delimiter}" >> $GITHUB_ENV;
+    echo "::set-output name=svg_files::${svg_files//$'\n'/'%0A'}"
 fi;
