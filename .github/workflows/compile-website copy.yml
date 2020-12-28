@@ -38,7 +38,6 @@ jobs:
 
   compile-sass:
     runs-on: ubuntu-latest
-    if: ${{ hashFiles('**.sass', '!**_*.sass', '**.scss', '!**_*.scss') }}
     needs: [find-files]
     env: 
       sources:
@@ -46,11 +45,13 @@ jobs:
     
     steps:
       - name: Checkout new branch
+        if: ${{ hashFiles('**.sass', '!**_*.sass', '**.scss', '!**_*.scss') }}
         uses: actions/checkout@v2
         with:
           ref: ${{env.PUB_BRANCH}}
 
       - name: Find sass files & create .css paths
+        if: ${{ hashFiles('**.sass', '!**_*.sass', '**.scss', '!**_*.scss') }}
         run: |
           lb=$'\n';
           export IFS=":";
@@ -66,6 +67,7 @@ jobs:
           {delimiter}" >> $GITHUB_ENV
 
       - name: Compile .css from .scss files
+        if: ${{ hashFiles('**.sass', '!**_*.sass', '**.scss', '!**_*.scss') }}
         uses: bkeys818/sass-build@master
         with:
           source: |
@@ -74,6 +76,7 @@ jobs:
             ${{env.destinations}}
 
       - name: Remove .scss files and push changes
+        if: ${{ hashFiles('**.sass', '!**_*.sass', '**.scss', '!**_*.scss') }}
         if: ${{ env.sources!= '' }}
         run: |
           git config user.name github-actions
