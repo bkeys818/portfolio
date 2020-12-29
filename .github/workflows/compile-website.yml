@@ -5,18 +5,29 @@ name: Compile Website
 on:
   push:
     branches: [ master ]
-  workflow_dispatch:
 
-env: 
+
+env:
   PUB_BRANCH: publish
+  ignore: |
+    ./.github
 
 jobs:
 
-  create-branch:
+  find-files:
     runs-on: ubuntu-latest
+    outputs:
+      sass_sources: ${{ steps.find-files.outputs.sass_sources }}
+      sass_destinations: ${{ steps.find-files.outputs.sass_destinations }}
+      ts_files: ${{ steps.find-files.outputs.ts_files }}
+      js_files: ${{ steps.find-files.outputs.js_files }}
+      html_files: ${{ steps.find-files.outputs.html_files }}
+      svg_files: ${{ steps.find-files.outputs.svg_files }}
+    env:
+      ignore: |
+        ./.github
     steps:
-      - name: Checkout main branch
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Create new branch
         run: |
@@ -24,77 +35,241 @@ jobs:
           git config user.email github-actions@github.com
           git branch -f $PUB_BRANCH
           git checkout $PUB_BRANCH
-          git rm .gitignore
-          git commit -m "Remove .gitignore"
+          find . -type f -name ".gitignore" -exec git rm {} \;
+          git commit -m ":see_no_evil: Delete .gitignore files"
           git push -uf origin $PUB_BRANCH
+
+      - name: Find files
+        id: find-files
+        run: ./.github/scripts/find-files.sh
+
+      - name: Upload Sass files
+        if: ${{ steps.find-files.outputs.sass_sources != '' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: sass-files
+          retention-days: 1
+          path: |
+            **/*.sass
+            **/*.scss
+        
+      - name: Upload Typescript files
+        if: ${{ steps.find-files.outputs.ts_files != '' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: ts-files
+          retention-days: 1
+          path: '**/*.ts'
+
+      - name: Upload Javascript files
+        if: ${{ steps.find-files.outputs.js_files != '' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: js-files
+          retention-days: 1
+          path: '**/*.js'
+
+      - name: Upload HTML files
+        if: ${{ steps.find-files.outputs.html_files != '' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: html-files
+          retention-days: 1
+          path: '**/*.html'
+
+      - name: Upload SVG files
+        if: ${{ steps.find-files.outputs.svg_files != '' }}
+        uses: actions/upload-artifact@v2
+        with:
+          name: svg-files
+          retention-days: 1
+          path: '**/*.svg'
 
 
   compile-sass:
     runs-on: ubuntu-latest
-    needs: [create-branch]
+    needs: find-files
+    if: ${{ needs.find-files.outputs.sass_sources != '' }}
     steps:
-      - name: Checkout new branch
-        uses: actions/checkout@v2
+      - name: Download artifact w/ Sass files
+        uses: actions/download-artifact@v2
         with:
-          ref: ${{env.PUB_BRANCH}}
+          name: sass-files
 
-      - name: Find sass files & create .css paths
-        run: ./.github/scripts/find-scss.sh
-
-      - name: Compile .css from .scss files
-        if: ${{ env.sources != '' }}
+      - name: Compile Sass 
         uses: bkeys818/sass-build@master
         with:
           source: |
-            ${{env.sources}}
+            ${{needs.find-files.outputs.sass_sources}}
           destination: |
-            ${{env.destinations}}
+            ${{needs.find-files.outputs.sass_destinations}}
 
-      - name: Remove .scss files and push changes
-        if: ${{ env.sources!= '' }}
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git add .
-          git rm *.scss
-          git commit -m "Compile sass"
-          git push
+      - name: Upload Compiled files
+        uses: actions/upload-artifact@v2
+        with:
+          name: complete
+          retention-days: 1
+          path: '**/*.css'
 
 
   compile-ts:
     runs-on: ubuntu-latest
-    needs: [create-branch, compile-sass]
+    needs: find-files
+    if: ${{ needs.find-files.outputs.ts_files != '' }}
     steps:
-      - name: Checkout new branch
+      - name: Download artifact w/ Typescript files
+        uses: actions/download-artifact@v2
+        with:
+          name: ts-files
+      
+      - name: Cache Primes
+        id: cache-minify
+        uses: actions/cache@v2
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-minify
+
+      - name: Install minify
+        if: steps.cache-minify.outputs.cache-hit != 'true'
+        run: npm install minify
+    
+      - name: Compile Typescript
+        run: |
+          while IFS= read -r file; do
+            tsc "$file";
+            min=$(./node_modules/.bin/minify "${file%??}js"); wait; echo $min > "${file%??}js"
+          done <<< "${{needs.find-files.outputs.ts_files}}"
+
+      - name: Upload Compiled files
+        uses: actions/upload-artifact@v2
+        with:
+          name: complete
+          retention-days: 1
+          path: |
+            **/*.js
+            !./node_modules
+
+
+  minify-js-and-html:
+    runs-on: ubuntu-latest
+    needs: find-files
+    if: ${{ needs.find-files.outputs.js_files != '' || needs.find-files.outputs.html_files != '' }}
+    steps:
+      - name: Download artifact w/ Javascript files
+        if: ${{ needs.find-files.outputs.js_files != '' }}
+        uses: actions/download-artifact@v2
+        with:
+          name: js-files
+
+      - name: Download artifact w/ HTML files
+        if: ${{ needs.find-files.outputs.html_files != '' }}
+        uses: actions/download-artifact@v2
+        with:
+          name: html-files
+      
+      - name: Cache minify
+        id: cache-minify
+        uses: actions/cache@v2
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-minify
+
+      - name: Install minify
+        if: steps.cache-minify.outputs.cache-hit != 'true'
+        run: npm install minify
+
+      - name: Minify Javacript
+        if: ${{ needs.find-files.outputs.js_files != '' }}
+        run: |
+          while IFS= read -r file; do
+            min=$(./node_modules/.bin/minify "$file"); wait; echo $min > "$file"
+          done <<< "${{needs.find-files.outputs.js_files}}"
+
+      - name: Minify HTML
+        if: ${{ needs.find-files.outputs.html_files != '' }}      
+        run: |
+          while IFS= read -r file; do
+            min=$(./node_modules/.bin/minify "$file"); wait; echo $min > "$file"
+          done <<< "${{needs.find-files.outputs.html_files}}"
+
+      - name: Upload Compiled files
+        uses: actions/upload-artifact@v2
+        with:
+          name: complete
+          retention-days: 1
+          path: |
+            **/*.js
+            **/*.html
+            !./node_modules
+
+
+  minify-svg:
+    runs-on: ubuntu-latest
+    needs: find-files
+    if: ${{ needs.find-files.outputs.svg_files != '' }}
+    steps:
+      - name: Download artifact w/ SVG files
+        uses: actions/download-artifact@v2
+        with:
+          name: svg-files
+      
+      - name: Cache SVGO
+        id: cache-svgo
+        uses: actions/cache@v2
+        with:
+          path: node_modules/
+          key: ${{ runner.os }}-svgo
+
+      - name: Install svgo
+        if: steps.cache-svgo.outputs.cache-hit != 'true'
+        run: npm install svgo
+
+      - name: Minify SVG
+        run: |
+          while IFS= read -r file; do
+            ./node_modules/.bin/svgo "$file"
+          done <<< "${{needs.find-files.outputs.svg_files}}"
+
+      - name: Upload Compiled files
+        uses: actions/upload-artifact@v2
+        with:
+          name: complete
+          retention-days: 1
+          path: |
+            **/*.svg
+            !./node_modules
+
+  make-changes:
+    runs-on: ubuntu-latest
+    if: always()
+    needs: [compile-sass, compile-ts, minify-js-and-html, minify-svg]
+    steps:
+      - name: Checkout publishing branch
         uses: actions/checkout@v2
         with:
           ref: ${{env.PUB_BRANCH}}
 
-      - name: Find TypeScript files
-        run: |
-          ts_files=$(./.github/scripts/search-files.sh "-name *.ts")
-          echo "ts_files<<{delimiter}
-          ${ts_files}
-          {delimiter}" >> $GITHUB_ENV
-
-      - name: Compile TypeScript
-        if: ${{ env.ts_files != '' }}
-        run: |
-          for file in $ts_files; do
-            tsc $file;
-          done;
-
-      - name: Configure git user
+      - name: Download artifact w/ compiled and minified files
+        uses: actions/download-artifact@v2
+        with:
+          name: complete
+      
+      - name: Commit changes
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-
-      - name: Commit changes
-        if: ${{ env.ts_files != '' }}
-        run: |
+          files=$(./.github/scripts/search-for.sh "-type f \( -name \"*.sass\" -o -name \"*.scss\" -o -name \"*.ts\" \)");echo "$files"
+          while IFS= read -r file; do
+            git rm "$file"
+          done <<< "$files"
           git add .
-          git rm *.ts
-          git commit -m "Compile typescript"
-          
-      - name: Push changes
-        run: git push
+          git commit -m ":rocket: Compile and Minify"
+          git push
+
+      - name: Delete Artifact by Name
+        uses: jimschubert/delete-artifacts-action@v1
+        if: always()
+        with: 
+          pattern: 'sass-files|ts-files|js-files|html-files|svg-files|complete'
+          log_level: 'info'
+          min_bytes: '0'
