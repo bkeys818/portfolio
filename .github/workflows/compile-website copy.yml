@@ -244,16 +244,27 @@ jobs:
     if: always()
     needs: [compile-sass, compile-ts, minify-js-and-html, minify-svg]
     steps:
+      - name: Checkout publishing branch
+        uses: actions/checkout@v2
+        with:
+          ref: ${{env.PUB_BRANCH}}
+
       - name: Download artifact w/ compiled and minified files
         uses: actions/download-artifact@v2
         with:
           name: complete
       
-      - run: ls -1R
+      - name: Commit changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m ":rocket: Compile and Minify"
+          git push
 
       - name: Delete Artifact by Name
         uses: jimschubert/delete-artifacts-action@v1
-        with:
+        with: 
           pattern: 'sass-files|ts-files|js-files|html-files|svg-files|complete'
           log_level: 'info'
           min_bytes: '0'
