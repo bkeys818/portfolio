@@ -259,10 +259,8 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          files="$(./.github/scripts/search-for.sh "-name \"*sass\" -name \"*scss\" -name \"*ts\"")";
-          echo "\"$files\""
+          files=$(./.github/scripts/search-for.sh "-type f \( -name \"*.sass\" -o -name \"*.scss\" -o -name \"*.ts\" \)");echo "$files"
           while IFS= read -r file; do
-            echo "$file"
             git rm "$file"
           done <<< "$files"
           git add .
