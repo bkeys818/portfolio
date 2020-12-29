@@ -265,6 +265,7 @@ jobs:
 
       - name: Delete Artifact by Name
         uses: jimschubert/delete-artifacts-action@v1
+        if: always()
         with: 
           pattern: 'sass-files|ts-files|js-files|html-files|svg-files|complete'
           log_level: 'info'
