@@ -136,8 +136,8 @@ jobs:
       - name: Compile Typescript
         run: |
           while IFS= read -r file; do
-            tsc "$file"
-            ./node_modules/.bin/minify "${file%??}js" > "${file%??}js"
+            tsc "$file";
+            min=$(./node_modules/.bin/minify "$file"); wait; echo $min > "${file%??}js"
           done <<< "${{needs.find-files.outputs.ts_files}}"
 
       - name: Upload Compiled files
@@ -180,14 +180,14 @@ jobs:
         if: ${{ needs.find-files.outputs.js_files != '' }}
         run: |
           while IFS= read -r file; do
-            ./node_modules/.bin/minify "$file" "$file"
+            min=$(./node_modules/.bin/minify "$file"); wait; echo $min > "$file"
           done <<< "${{needs.find-files.outputs.js_files}}"
 
       - name: Minify HTML
         if: ${{ needs.find-files.outputs.html_files != '' }}      
         run: |
           while IFS= read -r file; do
-            ./node_modules/.bin/minify "$file" > "$file"
+            min=$(./node_modules/.bin/minify "$file"); wait; echo $min > "$file"
           done <<< "${{needs.find-files.outputs.html_files}}"
 
       - name: Upload Compiled files
@@ -224,7 +224,7 @@ jobs:
       - name: Minify SVG
         run: |
           while IFS= read -r file; do
-            ./node_modules/.bin/svgo "$file" > "$file"
+            min=$(./node_modules/.bin/svgo "$file"); wait; echo $min > "$file"
           done <<< "${{needs.find-files.outputs.svg_files}}"
 
       - name: Upload Compiled files
