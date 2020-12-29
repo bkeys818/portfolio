@@ -227,7 +227,7 @@ jobs:
       - name: Minify SVG
         run: |
           while IFS= read -r file; do
-            min=$(./node_modules/.bin/svgo "$file"); wait; echo $min > "$file"
+            ./node_modules/.bin/svgo "$file"
           done <<< "${{needs.find-files.outputs.svg_files}}"
 
       - name: Upload Compiled files
