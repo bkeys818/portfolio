@@ -34,6 +34,10 @@ jobs:
           git config user.name github-actions
           git config user.email github-actions@github.com
           git branch -f $PUB_BRANCH
+          git checkout $PUB_BRANCH
+          find . -type f -name ".gitignore" -exec git rm {} \;
+          git commit -m ":see_no_evil: Delete .gitignore files"
+          git push -uf origin $PUB_BRANCH
 
       - name: Find files
         id: find-files
