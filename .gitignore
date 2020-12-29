@@ -1,4 +1,7 @@
 /node_modules
+/package.json
+/package-lock.json
+
 *.css.map
 *.js.map
 *.css
