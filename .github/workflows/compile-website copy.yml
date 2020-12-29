@@ -39,32 +39,6 @@ jobs:
           git commit -m ":see_no_evil: Delete .gitignore files"
           git push -uf origin $PUB_BRANCH
 
-      - name: Find files
-        id: find-files
-        run: ./.github/scripts/find-files.sh
-
-      - name: Remove *.css from .gitignore
-        if: ${{ steps.find-files.outputs.sass_sources != '' }}
-        run: |
-          gitignore_css=$(grep "^*.css$" ".gitignore")
-          if [[ "$gitignore_css" ]]; then
-            [[ "$gitignore_css" ]] && sed -i "/*\.css/d" ".gitignore";
-            git add .gitignore
-            git commit -m ":see_no_evil: Remove css from gitignore"
-            git push -uf origin $PUB_BRANCH
-          fi;
-
-      - name: Remove *.js from .gitignore
-        if: ${{ steps.find-files.outputs.ts_files != '' }}
-        run: |
-          gitignore_js=$(grep "^*.js$" ".gitignore")
-          if [[ "$gitignore_js" ]]; then
-            [[ "$gitignore_js" ]] && sed -i "/*\.js/d" ".gitignore";
-            git add .gitignore
-            git commit -m ":see_no_evil: Remove js from gitignore"
-            git push -uf origin $PUB_BRANCH
-          fi;
-
       - name: Upload Sass files
         if: ${{ steps.find-files.outputs.sass_sources != '' }}
         uses: actions/upload-artifact@v2
