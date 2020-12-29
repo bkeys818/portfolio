@@ -258,7 +258,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          find . -type f -name \( "*.sass" -o -name "*.scss" -o -name "*.ts" \) -exec git rm {} \;
+          find . -type f \( -name "*.sass" -o -name "*.scss" -o -name "*.ts" \) -exec git rm {} \;
           git add .
           git commit -m ":rocket: Compile and Minify"
           git push
