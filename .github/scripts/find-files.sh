@@ -19,7 +19,7 @@ search_arg="-type f \( -name '*.scss' -not -name '_*.scss' \) -o \( -name '*.sas
 -o -name '*.html' \
 -o -name '*.svg'";
 
-files=$(search_for "$search_arg");
+files=$(./.github/scripts/search-for.sh "$search_arg");
 while IFS= read -r file; do
     case "$file" in
         *.scss | *.sass)
