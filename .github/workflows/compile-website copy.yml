@@ -137,7 +137,7 @@ jobs:
         run: |
           while IFS= read -r file; do
             tsc "$file";
-            min=$(./node_modules/.bin/minify "$file"); wait; echo $min > "${file%??}js"
+            min=$(./node_modules/.bin/minify "${file%??}js"); wait; echo $min > "${file%??}js"
           done <<< "${{needs.find-files.outputs.ts_files}}"
 
       - name: Upload Compiled files
