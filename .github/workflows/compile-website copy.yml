@@ -198,8 +198,8 @@ jobs:
           name: complete
           retention-days: 1
           path: |
-            '**/*.js'
-            '**/*.html'
+            **/*.js
+            **/*.html
             !node_modules
 
 
