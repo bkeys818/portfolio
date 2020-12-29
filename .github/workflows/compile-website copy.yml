@@ -39,6 +39,10 @@ jobs:
           git commit -m ":see_no_evil: Delete .gitignore files"
           git push -uf origin $PUB_BRANCH
 
+      - name: Find files
+        id: find-files
+        run: ./.github/scripts/find-files.sh
+
       - name: Upload Sass files
         if: ${{ steps.find-files.outputs.sass_sources != '' }}
         uses: actions/upload-artifact@v2
