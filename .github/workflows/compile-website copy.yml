@@ -145,7 +145,9 @@ jobs:
         with:
           name: complete
           retention-days: 1
-          path: '**/*.js'
+          path: |
+            **/*.js
+            !node_modules
 
 
   minify-js-and-html:
@@ -198,6 +200,7 @@ jobs:
           path: |
             '**/*.js'
             '**/*.html'
+            !node_modules
 
 
   minify-svg:
@@ -234,6 +237,7 @@ jobs:
           retention-days: 1
           path: |
             '**/*.svg'
+            !node_modules
 
   make-changes:
     runs-on: ubuntu-latest
