@@ -26,3 +26,19 @@ html {
     border: .5px solid red;
     box-sizing: border-box;
 }
+
+$breakpoint: (
+    small: "(max-width: 575px)",
+    medium: "(max-width: 719px)",
+    xlarge: "(min-width: 1439px)" // 1441px
+);
+
+@mixin responsive-design($size) {
+    @if map-has-key($breakpoint, $size) {
+        @media screen and #{unquote(map-get($breakpoint, $size))} {
+            @content;
+        }
+    } @else {
+        @error "The $breakpoints varible has no value for the given key: (#{$size})";
+    }
+};

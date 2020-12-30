@@ -1,17 +1,27 @@
 @import '../global-style';
 
+main {
+    padding: 0 30px;
+}
 
 section {
+    margin: 0 auto;
     display: grid;
     align-items: center;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     max-width: 1000px;
-    margin: 0 auto;
+    @include responsive-design(xlarge) {
+        grid-template-columns: repeat(auto-fit, minmax(335px, 1fr));
+        max-width: 69.44vw;
+    }
+    @include responsive-design(medium) {
+        grid-template-columns: 1fr;
+    }
 }
 
 div {
     width: 100%;
     height: 100%;
     padding: 100px;
-    @extend %debugging
+    @extend %debugging;
 }
