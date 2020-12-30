@@ -1,4 +1,10 @@
-@import '../global-style';
+@import '../../global-style';
+
+header {
+    @extend %debugging;
+    width: 100%;
+    height: 30vh;
+}
 
 main {
     padding: 0 30px;
