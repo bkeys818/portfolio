@@ -1,0 +1,25 @@
+@import 'reset';
+
+//**** Responsive Design ****//
+$breakpoint: (
+	small: "(max-width: 575px)", // right over minimum window size
+	medium: "(max-width: 719px)", // right under minimum window size
+	xlarge: "(min-width: 1439px)" // 1441px
+);
+
+@mixin responsive-design($size) {
+	@if map-has-key($breakpoint, $size) {
+		@media screen and #{unquote(map-get($breakpoint, $size))} {
+			@content;
+		}
+	} @else {
+		@error "The $breakpoints varible has no value for the given key: (#{$size})";
+	}
+} ;
+
+
+//***** Custom Funtions *****//
+%debugging {
+	border: 0.5px solid red;
+	box-sizing: border-box;
+}
