@@ -1,3 +1,5 @@
+#!/bin/bash
+
 ### Predefined Elements ###
 search_for() {
     if [[ $ignore ]]; then

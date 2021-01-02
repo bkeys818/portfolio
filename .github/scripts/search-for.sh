@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [[ $ignore ]]; then
     ignore_str="\( "
     for item in $ignore; do
