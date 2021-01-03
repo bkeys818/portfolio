@@ -42,19 +42,11 @@ if [[ $sass_sources ]]; then
     echo "::set-output name=sass_sources::${sass_sources//$'\n'/'%0A'}"
     sass_destinations=${sass_destinations%?}
     echo "::set-output name=sass_destinations::${sass_destinations//$'\n'/'%0A'}"
-    if [[ $(grep "^*.css$" ".gitignore") ]]; then
-        echo "update_gitignore=true" >> $GITHUB_ENV
-        [[ $GITIGNORE_CONTAINS_CCS ]] && sed -i '' '/*\.css/d' ".gitignore"
-    fi
 fi
 
 if [[ $ts_files ]]; then
     ts_files=${ts_files%?}
     echo "::set-output name=ts_files::${ts_files//$'\n'/'%0A'}"
-    if [[ $(grep "^*.js$" ".gitignore") ]]; then
-        echo "update_gitignore=true" >> $GITHUB_ENV
-        [[ $GITIGNORE_CONTAINS_CCS ]] && sed -i '' '/*\.js/d' ".gitignore"
-    fi
 fi
 
 if [[ $js_files ]]; then
