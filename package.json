@@ -1,0 +1,26 @@
+{
+  "name": "bkeys818.com",
+  "version": "1.0.0",
+  "description": "My personal feelance portfolio",
+  "scripts": {
+    "compile-site": "compile-site"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bkeys818/bkeys818"
+  },
+  "keywords": [
+    "freelance",
+    "portfolio"
+  ],
+  "author": "Ben Keys <bkeys818@gmail.com> (http://bkeys818.com/)",
+  "license": "UNLICENSED",
+  "private": true,
+  "bugs": {
+    "url": "https://github.com/bkeys818/bkeys818/issues"
+  },
+  "homepage": "https://github.com/bkeys818/bkeys818#readme",
+  "devDependencies": {
+    "sass": "^1.32.0"
+  }
+}
