@@ -28,8 +28,8 @@ jobs:
           git commit -m ":fire: Remove unnecessary files"
           
           npm run compile-site
+          git rm -r node_modules package.json package-lock.json
           git add .
-          git rm node_modules package.json package-lock.json
           git commit -m ':rocket: Compile Site'
 
           git push -uf origin $PUB_BRANCH
