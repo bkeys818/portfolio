@@ -15,6 +15,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          submodules: recursive
 
       - name: Compile site
         run: |
@@ -24,7 +26,7 @@ jobs:
           git checkout $PUB_BRANCH
 
           find . \( -type d -name node_modules \) -prune -false -o \
-          -type f \( -name ".gitignore" -o -name *".md" \) -exec git rm {} \;
+          -type f \( -name ".gitignore" -o -name "*.md" -o -name ".gitmodules" -o -path "./*/*.git" \) -exec git rm {} \;
           git commit -m ":fire: Remove unnecessary files"
           
           npm run compile-site
