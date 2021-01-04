@@ -4,7 +4,7 @@ name: Compile Website
 
 on:
   push:
-    branches: [ master ]
+    branches: [ compile-submodule ]
 
 env:
   PUB_BRANCH: publish
@@ -24,13 +24,13 @@ jobs:
           git config user.email github-actions@github.com
           git branch -f $PUB_BRANCH
           git checkout $PUB_BRANCH
-
+          
           find . \( -type d -name node_modules \) -prune -false -o \
-          -type f \( -name ".gitignore" -o -name "*.md" -o -name ".gitmodules" -o -path "./*/*.git" \) -exec git rm {} \;
+          -type f \( -name ".gitignore" -o -name "*.md" \) -exec git rm {} \;
           git commit -m ":fire: Remove unnecessary files"
           
           npm run compile-site
-          git rm -r node_modules package.json package-lock.json
+          git rm -r node_modules package.json package-lock.json .github
           git add .
           git commit -m ':rocket: Compile Site'
 
