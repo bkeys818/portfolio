@@ -11,12 +11,12 @@ env:
 
 jobs:
 
-  find-files:
+  compile-site:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
-      - name: Create new branch
+      - name: Compile site
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
@@ -33,6 +33,3 @@ jobs:
           git commit -m ':rocket: Compile Site'
 
           git push -uf origin $PUB_BRANCH
-
-      - name: Compile Site
-        run: npm run compile-site
