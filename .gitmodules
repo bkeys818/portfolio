@@ -1,3 +1,4 @@
 [submodule "random-noun-generator"]
 	path = random-noun-generator
 	url = https://github.com/bkeys818/random-noun-generator
+	branch = master
