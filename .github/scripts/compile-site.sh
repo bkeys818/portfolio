@@ -18,7 +18,27 @@ compile_repository() {
     git commit -m ":fire: Remove unnecessary files"
 
     # Compile directory
-    npm run compile-site
+    files=`\
+    find . -type d \( -path 'node_modules' -o -path '.github' \) -prune -false -o -type f \
+    \( -name ".gitignore" -o -name "*.md" \) -o \
+    \( \( -name '*.scss' -not -name '_*.scss' \) -o \( -name '*.sass' -not -name '_*.sass' \) \)\
+    `
+    while read -r file; do
+        case $file in
+            # Files to remove
+            ".gitignore" | *".md" )
+                rm -rf "$file";;
+            # Sass files
+            *".scss" | *".sass" )
+                if [[ $sass_run ]]; then
+                    rm -rf "$file"
+                else
+                    /home/runner/work/bkeys818/bkeys818/node_modules/.bin/sass .:. --embed-source-map
+                    rm -rf "$file"
+                    sass_run=0
+                fi;;
+        esac
+    done <<< "$files"
 
     # Remove rest of unnecessary
     git rm -r node_modules package.json package-lock.json .github
