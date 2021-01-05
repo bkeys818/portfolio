@@ -19,19 +19,4 @@ jobs:
           submodules: recursive
 
       - name: Compile site
-        run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git branch -f $PUB_BRANCH
-          git checkout $PUB_BRANCH
-          
-        # find . \( -type d -name node_modules \) -prune -false -o \
-        # -type f \( -name ".gitignore" -o -name "*.md" \) -exec git rm {} \;
-        # git commit -m ":fire: Remove unnecessary files"
-          
-          npm run compile-site
-          git rm -r node_modules package.json package-lock.json .github
-          git add .
-          git commit -m ':rocket: Compile Site'
-
-          git push -uf origin $PUB_BRANCH
+        run: ./.github/scripts/compile-site.sh
