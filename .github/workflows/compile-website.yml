@@ -4,7 +4,7 @@ name: Compile Website
 
 on:
   push:
-    branches: [ master ]
+    branches: [ compile-submodules ]
 
 env:
   PUB_BRANCH: publish
