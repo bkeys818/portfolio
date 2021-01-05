@@ -3,12 +3,10 @@
 # Author: Ben Keys
 # --------------------------------------
 
-# Authenticate git profile
-git config user.name github-actions
-git config user.email github-actions@github.com
-
 compile_repository() {
     # Create new branch
+    git config user.name github-actions
+    git config user.email github-actions@github.com
     git branch -f $PUB_BRANCH
     git checkout $PUB_BRANCH
 
