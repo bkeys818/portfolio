@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "My personal feelance portfolio",
   "scripts": {
-    "compile": "compile-site"
+    "build-site": "npm run compile-sass",
+    "compile-sass": "sass root:root --embed-source-map"
   },
   "repository": {
     "type": "git",
