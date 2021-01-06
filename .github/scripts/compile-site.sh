@@ -9,6 +9,8 @@ git config user.email github-actions@github.com
 
 compile_repository($repo) {
     # Create new branch
+    git config user.name github-actions
+    git config user.email github-actions@github.com
     git branch -f $PUB_BRANCH
     git checkout $PUB_BRANCH
 
