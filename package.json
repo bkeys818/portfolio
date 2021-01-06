@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "My personal feelance portfolio",
   "scripts": {
-    "build-site": "npm run compile-sass",
+    "build": "npm run compile-sass",
     "compile-sass": "sass root:root --embed-source-map"
   },
   "repository": {
@@ -16,7 +16,6 @@
   ],
   "author": "Ben Keys <bkeys818@gmail.com> (http://bkeys818.com/)",
   "license": "UNLICENSED",
-  "private": true,
   "bugs": {
     "url": "https://github.com/bkeys818/bkeys818/issues"
   },
