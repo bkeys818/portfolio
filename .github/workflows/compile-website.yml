@@ -12,12 +12,8 @@ env:
 jobs:
   compile-site:
     runs-on: ubuntu-latest
-    env:
-      PUSH_AUTH: ${{ secrets.PUSH_AUTH }}
     steps:
       - uses: actions/checkout@v2
-        with:
-          submodules: recursive
 
       - name: Compile site
         run: ./.github/scripts/compile-site.sh
