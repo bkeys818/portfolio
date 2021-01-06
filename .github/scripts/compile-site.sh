@@ -7,7 +7,7 @@
 git config user.name github-actions
 git config user.email github-actions@github.com
 
-compile_repository() {
+compile_repository($repo) {
     # Create new branch
     git branch -f $PUB_BRANCH
     git checkout $PUB_BRANCH
@@ -46,20 +46,21 @@ compile_repository() {
     git commit -m ':rocket: Compile Directory'
 
     # Push changes
-    git push -uf origin $PUB_BRANCH
+    echo "bkeys818
+    $PUSH_AUTH" | git push https://github.com/bkeys818/$repo.git HEAD:refs/heads/$PUB_BRANCH
 }
 
 
 # Main repository
-compile_repository
+compile_repository "bkeys818"
 main_repository="$PWD"
 
 # Submodules
 submodules=$(git config --file .gitmodules --get-regexp path | awk '{ print $2 }')
 while read -r submodule; do
     cd "$submodule"
-    compile_repository
-    cd "main_repository"
+    compile_repository "$submodule"
+    cd "$main_repository"
 done <<< "$submodules"
 
 git submodule update
