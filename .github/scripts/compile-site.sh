@@ -53,8 +53,10 @@ git rm -r node_modules package.json package-lock.json .github
 # Switch submodules to publish branch
 submodules=$(git config --file .gitmodules --get-regexp path | awk '{ print $2 }')
 while read -r submodule; do
-    git submodule set-branch --branch publihs -- "$submodule"
+    git submodule set-branch --branch publish -- "$submodule"
 done <<< "$submodules"
+git submodule foreach checkout publish
+git submodule foreach checkout pull
 git submodule update --remote
 
 # Commit & push changes
