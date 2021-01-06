@@ -58,7 +58,10 @@ done <<< "$submodules"
 git submodule update --remote
 
 
-# # Commit & push changes
-# git add .
-# git commit -m ':rocket: Compile Directory'
-# git push --set-upstream origin publish
+echo "testing this"
+# Commit & push changes
+err="$(git add .
+git commit -m ':rocket: Compile Directory'
+git push origin publish)"
+
+echo "\"$err\""
