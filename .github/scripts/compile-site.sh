@@ -57,11 +57,7 @@ while read -r submodule; do
 done <<< "$submodules"
 git submodule update --remote
 
-
-echo "testing this"
 # Commit & push changes
-err="$(git add .
+git add .
 git commit -m ':rocket: Compile Directory'
-git push origin publish)"
-
-echo "\"$err\""
+git push -f origin publish
