@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "My personal feelance portfolio",
   "scripts": {
-    "publish": "compile-site"
+    "compile": "compile-site"
   },
   "repository": {
     "type": "git",
