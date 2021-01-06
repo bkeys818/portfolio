@@ -7,7 +7,7 @@
 git config user.name github-actions
 git config user.email github-actions@github.com
 
-compile_repository($repo) {
+compile_repository() {
     # Create new branch
     git config user.name github-actions
     git config user.email github-actions@github.com
@@ -49,7 +49,7 @@ compile_repository($repo) {
 
     # Push changes
     echo "bkeys818
-    $PUSH_AUTH" | git push https://github.com/bkeys818/$repo.git HEAD:refs/heads/$PUB_BRANCH
+    $PUSH_AUTH" | git push https://github.com/bkeys818/$1.git HEAD:refs/heads/$PUB_BRANCH
 }
 
 
