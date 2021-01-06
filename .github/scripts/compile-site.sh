@@ -58,7 +58,7 @@ done <<< "$submodules"
 git submodule update --remote
 
 
-# Commit & push changes
-git add .
-git commit -m ':rocket: Compile Directory'
-git push --set-upstream origin publish
+# # Commit & push changes
+# git add .
+# git commit -m ':rocket: Compile Directory'
+# git push --set-upstream origin publish
