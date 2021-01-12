@@ -4,6 +4,7 @@
   "description": "My personal feelance portfolio",
   "scripts": {
     "build": "npm run compile-sass",
+    "postbuild": "find . -maxdepth 1 -mindepth 1 \\( -type d -o -type f \\) -not \\( -name root -o -name .git \\) -exec rm -r {} \\; && mv ./root/* ./ && rm -r root",
     "compile-sass": "sass root:root --embed-source-map"
   },
   "repository": {
