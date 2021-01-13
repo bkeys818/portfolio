@@ -4,8 +4,11 @@
   "description": "My personal feelance portfolio",
   "scripts": {
     "build": "npm run compile-sass",
-    "postbuild": "find . -maxdepth 1 -mindepth 1 \\( -type d -o -type f \\) -not \\( -name root -o -name .git \\) -exec rm -r {} \\; && mv ./root/* ./ && rm -r root",
-    "compile-sass": "sass root:root --embed-source-map"
+    "compile-sass": "sass root:root --embed-source-map",
+    
+    "postbuild": "npm run rm-build-files && npm run into-root",
+    "rm-build-files": "find . -maxdepth 1 -mindepth 1 \\( -type d -o -type f \\) -not \\( -name root -o -name .git -o name netlify.toml \\) -exec rm -r {} \\;",
+    "into-root": "mv ./root/* ./ && rm -r root"
   },
   "repository": {
     "type": "git",
