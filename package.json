@@ -7,7 +7,7 @@
     "compile-sass": "sass root:root --embed-source-map",
     
     "postbuild": "npm run rm-build-files && npm run into-root",
-    "rm-build-files": "find . -maxdepth 1 -mindepth 1 \\( -type d -o -type f \\) -not \\( -name root -o -name .git -o name netlify.toml \\) -exec rm -r {} \\;",
+    "rm-build-files": "find . -maxdepth 1 -mindepth 1 \\( -type d -o -type f \\) -not \\( -name root -o -name .git -o -name netlify.toml \\) -exec rm -r {} \\;",
     "into-root": "mv ./root/* ./ && rm -r root"
   },
   "repository": {
