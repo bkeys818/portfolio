@@ -20,6 +20,7 @@ compile_repository() {
 
     # Replace .gitignore contents
     echo "node_modules" > ".gitignore"
+    find . -mindepth 2 -name ".gitignore" -exec rm {} \;
     git add .
 
     # if npm script "build" exist
