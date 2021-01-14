@@ -19,8 +19,8 @@ compile_repository() {
     git checkout $PUB_BRANCH
 
     # Replace .gitignore contents
+    find -name ".gitignore" -exec rm {} \;
     echo "node_modules" > ".gitignore"
-    find . -mindepth 2 -name ".gitignore" -exec rm {} \;
     git add .
 
     # if npm script "build" exist
