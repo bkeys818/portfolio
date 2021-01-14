@@ -3,3 +3,5 @@ node_modules
 *.css.map
 *.js.map
 *.css
+
+root/index.html
