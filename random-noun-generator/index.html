@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Random Noun Generator</title>
+		<link rel="stylesheet" href="style.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+		<script src="script.js"></script>
+	</head>
+
+	<body>
+		<header class="section">
+			<h2>Random Noun Generator</h2>
+		</header>
+
+		<main>
+			<section id="parameters">
+				<div>
+					<label for="noun-count">Number of nonus</label>
+					<input
+						type="number"
+						name="noun-count"
+						id="noun-count"
+						min="3"
+						max="50"
+						value="3"
+					/>
+				</div>
+				<div id="button">
+					<button id="submit-btn">Submit</button>
+				</div>
+			</section>
+
+			<section id="nouns-list">
+				<div class="center">
+					<h1>Nouns</h1>
+					<table id="noun-table">
+					</table>
+				</div>
+			</section>
+		</main>
+	</body>
+</html>

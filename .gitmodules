@@ -1,4 +1,0 @@
-[submodule "root/random-noun-generator"]
-	path = root/random-noun-generator
-	url = https://github.com/bkeys818/random-noun-generator
-	branch = publish

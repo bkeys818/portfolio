@@ -1,0 +1,197 @@
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default padding */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  font-size: 16px;
+  line-height: 1.5;
+  text-rendering: optimizeSpeed;
+}
+
+/* Remove list styles on ul, ol elements with a class attribute */
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Natural flow and rhythm in articles by default */
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations and transitions for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+@font-face {
+  font-family: "Rubik";
+  src: url("/global/Rubik-VariableFont_wght.ttf") format("woff2 supports variations"), url("/global/Rubik-VariableFont_wght.ttf") format("woff2-variations");
+  font-weight: 300 900;
+}
+.relative-container {
+  position: relative;
+}
+.relative-container > * {
+  position: absolute;
+}
+
+body {
+  background-color: #f1f5f8;
+  font-family: "Roboto", sans-serif;
+  color: #252a32;
+}
+
+section {
+  background-color: #ffffff;
+  box-shadow: 0 3px 4px rgba(0, 0, 0, 0.2);
+  padding: 16px 28px;
+  margin: 3% 0;
+}
+
+.wrap {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header {
+  padding: 4% 8% 3% 8%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  text-align: center;
+}
+
+main {
+  margin: 0 12%;
+}
+
+#parameters {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 100;
+}
+#parameters div {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 12px;
+}
+#parameters div:last-of-type {
+  margin-bottom: 0;
+}
+#parameters input[type=number] {
+  margin-left: 8px;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 300;
+}
+#parameters #submit-btn {
+  width: 95px;
+  height: 32px;
+  background-color: #457b9d;
+  border-radius: 16px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.22);
+  color: #fff;
+  font-size: 0.6em;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: 500;
+  transition: all 0.25s ease 0s;
+  cursor: pointer;
+  border: none;
+  outline: none;
+}
+#parameters #submit-btn:active {
+  transform: scale(0.96);
+}
+
+#nouns-list .center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#nouns-list .center * {
+  margin: 0 auto;
+}
+#nouns-list h1 {
+  display: inline;
+  font-weight: 500;
+  text-align: center;
+  padding-bottom: 2px;
+}
+#nouns-list table {
+  border-collapse: separate;
+  border-spacing: 6px;
+}
+#nouns-list tr {
+  background-color: #ecf0f8;
+}
+#nouns-list .noun {
+  padding: 8px 20px 6px 20px;
+  margin-left: auto;
+  border-radius: 6px;
+}
+#nouns-list .img {
+  max-height: 32px;
+  max-width: 32px;
+  height: auto;
+  width: auto;
+}
+
+/*# sourceMappingURL=data:application/json;charset=utf-8,%7B%22version%22:3,%22sourceRoot%22:%22%22,%22sources%22:%5B%22../../global/_style-reset.scss%22,%22../../global/_style.scss%22,%22style.scss%22%5D,%22names%22:%5B%5D,%22mappings%22:%22AAEA;AACA;AAAA;AAAA;EAGC;;;AAGD;AACA;AAAA;EAEC;;;AAGD;AACA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;AAAA;EAcC;;;AAGD;AACA;EACC;EACA;EACA;EACA;;;AAID;AACA;AAAA;EAEC;;;AAGD;AACA;EACC;;;AAGD;AACA;EACC;EACA;;;AAGD;AACA;EACC;;;AAGD;AACA;AAAA;AAAA;AAAA;EAIC;;;AAGD;AACA;EACC;IACC;IACA;IACA;IACA;;;AC5EF;EACC;EACA;EAEA;;AAKD;EACC;;AACA;EACC;;;ACZF;EACI;EACA;EACA;;;AAEJ;EACI;EACA;EACA;EACA;;;AAEJ;EACI;EACA;EACA;EACA;;;AAIJ;EACI;EACA;EACA;EACA;;;AAEJ;EACI;;;AAIJ;EACI;EACA;EACA;EACA;EAEA;EACA;;AAEA;EACI;EACA;EACA;;AAEJ;EACI;;AAGJ;EACI;EACA;EACA;EACA;;AAGJ;EACI;EACA;EACA;EACA;EACA;EAEA;EACA;EACA;EACA;EACA;EAEA;EACA;EACA;EACA;;AAEJ;EACI;;;AAKJ;EACI;EACA;EACA;;AACA;EACI;;AAGR;EACI;EACA;EACA;EACA;;AAEJ;EACI;EACA;;AAEJ;EACI;;AAGJ;EACI;EACA;EACA;;AAEJ;EACI;EACA;EACA;EACA%22,%22file%22:%22style.css%22%7D */
