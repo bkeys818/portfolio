@@ -37,4 +37,4 @@ jobs:
           rm -r root
           git add .
           git commit -m ":building_construction: Make root main directory"
-          git push
+          git push origin $PUB_BRANCH
