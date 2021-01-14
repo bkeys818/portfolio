@@ -35,3 +35,6 @@ jobs:
           find . -maxdepth 1 -mindepth 1 -not \( -path ./.git -o -path ./root \) -exec rm -r {} \;
           mv ./root/* ./
           rm -r root
+          git add .
+          git commit -m ":building_construction: Make root main directory"
+          git push
