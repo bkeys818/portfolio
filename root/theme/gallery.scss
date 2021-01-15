@@ -1,0 +1,33 @@
+@import '../global/style';
+
+main {
+    padding: 0 30px;
+}
+.project-gallery {
+    margin: 0 auto;
+    display: grid;
+    align-items: center;
+
+    // desktop
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 1000px;
+    // x-large
+    @include responsive-design(xlarge) {
+        grid-template-columns: repeat(auto-fit, minmax(335px, 1fr));
+        max-width: 69.44vw; /* max-width / 1440 */
+    }
+    // mobile
+    @include responsive-design(medium) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.project-gallery div {
+    width: 100%;
+    height: 100%;
+    @extend %debugging;
+}
+
+.empty {
+    padding: 100px;
+}
