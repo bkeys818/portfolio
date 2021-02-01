@@ -1,0 +1,35 @@
+nav {
+    ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+    }
+    ul, ul li {
+        display: inline-block;
+        height: 100%;
+    }
+}
+
+
+#top-navbar {
+	&, * { @extend %debugging; }
+}
+
+
+#top-navbar {
+	width: 100%;
+	height: 84px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	
+	.social-logos {
+		img {
+			height: 48px;
+			width: auto;
+		}
+	}
+	// text-align: center;
+	// font-family: 'Rubik', sans-serif;
+	// font-size: 2em;
+}
