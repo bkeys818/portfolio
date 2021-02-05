@@ -1,0 +1,15 @@
+@font-face {
+	font-family: 'Rubik';
+	src: url('../Rubik-VariableFont_wght.ttf') format('woff2 supports variations'),
+       url('../Rubik-VariableFont_wght.ttf') format('woff2-variations');
+	font-weight: 300 900;
+}
+
+$primary-background-color: #fff;
+$secoundary-background-color: #f1f5f8;
+$primary-color: #252a32;
+
+body {
+	background-color: $primary-background-color;
+    color: $primary-color;
+}

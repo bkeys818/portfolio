@@ -1,0 +1,8 @@
+@use 'reset';
+@use 'theme';
+@use 'responsive-design';
+
+%debugging {
+	border: 0.5px solid red;
+	box-sizing: border-box;
+}
