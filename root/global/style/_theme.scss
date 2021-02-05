@@ -1,3 +1,6 @@
+//****
+/******* Text *******/
+//****
 @font-face {
 	font-family: 'Rubik';
 	src: url('../Rubik-VariableFont_wght.ttf') format('woff2 supports variations'),
@@ -5,11 +8,45 @@
 	font-weight: 300 900;
 }
 
-$primary-background-color: #fff;
-$secoundary-background-color: #f1f5f8;
-$primary-color: #252a32;
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+
+
+//****
+/******* Color Scheme *******/
+//****
+$primary-background-color: #fff !default;
+$secoundary-background-color: #f1f5f8 !default;
+$primary-color: #252a32 !default;
 
 body {
 	background-color: $primary-background-color;
     color: $primary-color;
+}
+
+
+
+//****
+/******* Other *******/
+//****
+.relative-container {
+    position: relative;
+    .child {
+        position: absolute;
+        &.center{
+            &-v {
+                top: 50%;
+                transform: translateY(-50%);
+            }
+            &-h {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            &-vh, &-hv {
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+        }
+    }
 }

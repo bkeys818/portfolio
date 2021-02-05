@@ -1,8 +1,8 @@
 @use 'reset';
-@use 'theme';
-@use 'responsive-design';
+@forward 'theme';
+@forward 'responsive-design';
 
-%debugging {
+@mixin debugging {
 	border: 0.5px solid red;
 	box-sizing: border-box;
-}
+};
