@@ -1,6 +1,5 @@
 @use "../global/style" as *;
 
-// @use 'project-gallery';
 
 body {
     > * {
@@ -38,13 +37,18 @@ header {
     }
 }
 
-main {
-    div {
-        @include debugging;
-        width: 50%;
-        height: 100%;
-        display: inline-block;
+.project-gallery {
+    margin: 0 auto;
+    max-width: 1000px;
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit, minmax(328px, 1fr));
+    @media screen and (min-width: 1440px) {
+        margin: 0 calc( (84vw - 1000px) / 2);
+        max-width: none;
     }
-    display: flex;
-    height: 80vh;
+
+    column-gap: 12px;
+    row-gap: 12px;
 }
