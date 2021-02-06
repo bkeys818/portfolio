@@ -50,3 +50,57 @@ body {
         }
     }
 }
+
+//shadow
+@mixin smooth-shadow($direction: center, $offset: 20) {
+    $layers: $offset/5+1;
+    $offsetY: $offset * 1px;
+    $offsetX: 0;
+    $alpha: 0.20;
+
+    @if $direction == left {
+        $offsetX: $offsetY * -3 / 8;
+    } @else if $direction == right {
+        $offsetX: $offsetY * 3 / 8;
+    } @else if type-of($value: $direction) == 'number' {
+        $offsetX: $offsetY * $direction / 8;
+    }
+
+    @debug $direction;
+    // @debug $offsetX;
+
+    $css:();
+    @for $i from 1 to $layers+1 {
+        $blur: $offsetY;
+        $alpha: $alpha - .03;
+
+        $shadow: #{$offsetX $offsetY $blur rgba(0,0,0,$alpha)};
+        @if $i == $layers {
+            $css: append($css, unquote($string: "#{$shadow};"))
+        } @else {
+            $css: append($css, unquote($string: "#{$shadow},"))
+        }
+
+        $offsetX: $offsetX / 2;
+        $offsetY: $offsetY / 2;
+    }
+    @debug $css;
+    box-shadow: $css;
+};
+.shadow {
+    @include smooth-shadow;
+}
+$dir:();
+@for $i from 1 to 6 {
+    $dir: append($dir, #{$i});
+}
+$i-int: 1;
+@each $i in $dir {
+    .shadow-left#{$i} {
+        @include smooth-shadow($i-int);
+    }
+    .shadow-right#{$i} {
+        @include smooth-shadow(-1 * $i-int);
+    }
+    $i-int: $i-int + 1;
+}

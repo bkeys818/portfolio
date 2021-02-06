@@ -4,7 +4,7 @@ $breakpoint: (
 	mobile: "(max-width: #{$-mobile-breakpoint}px)",
 	small: "(max-width: 575px)", // right over minimum window size
 	medium: "(max-width: 719px)", // right under minimum window size
-	xlarge: "(min-width: 1439px)" // 1441px
+	large: "(min-width: 1439px)" // 1441px
 );
 
 @mixin responsive-design($size) {
