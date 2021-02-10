@@ -1,59 +1,42 @@
-@use "../global/style" as *;
+@use '../global/style' as *;
 
+.main-content {
+    $margins: 26px;
+    $max-width: 1000px;
+    $xlarge: 1439px; // 1440px
 
-body { > * { @include debugging; }}
-header, main, footer {
-    $margins: 32px;
-    max-width: 1000px + $margins;
+    max-width: $max-width + $margins;
     padding: 0 $margins;
     margin: 0 auto;
-    @include responsive-design(large) {
+    @media screen and (min-width: $xlarge) {
         max-width: none;
-        margin: 0 calc((1439px/*1441px*/ - #{1000px + $margins}) / 2);
-    };
-}
-
-a {
-    text-decoration: none;
-    color: inherit;
+        margin: 0 calc((#{$xlarge + 1} - #{$max-width + $margins}) / 2);
+    }
 }
 
 
-header {
-    div {h3 { display: inline-block;}}
 
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+// header {
+//     div {h3 { display: inline-block;}}
 
-    div, nav {
-        div { display: inline-block; }
-    }
+//     display: flex;
+//     flex-direction: row;
+//     align-items: center;
 
-    .logo {
-        font-size: 32px;
-    }
+//     div, nav {
+//         div { display: inline-block; }
+//     }
+
+//     .logo {
+//         font-size: 32px;
+//     }
     
-    nav {
-        flex-grow: 1;
-    }
-}
+//     nav {
+//         flex-grow: 1;
+//     }
+// }
 
-    
-.project-gallery {
-    $gutter: 43px;
-    margin: 0 2vw;
-
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(296px, 1fr));
-    column-gap: $gutter;
-    row-gap: $gutter;
-}
-
-.cell {
-    border-radius: 20%;
-    img {
-        border-radius: inherit;
-    }
-    @include smooth-shadow;
-}
+// a {
+//     text-decoration: none;
+//     color: inherit;
+// }
