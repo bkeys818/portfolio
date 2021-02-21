@@ -1,6 +1,6 @@
 $-mobile-breakpoint: 480; //private
 
-$breakpoint: (
+$breakpoints: (
 	mobile: "(max-width: #{$-mobile-breakpoint}px)",
 	small: "(max-width: 575px)", // right over minimum window size
 	medium: "(max-width: 719px)", // right under minimum window size
@@ -8,8 +8,8 @@ $breakpoint: (
 );
 
 @mixin responsive-design($size) {
-	@if map-has-key($breakpoint, $size) {
-		@media screen and #{unquote(map-get($breakpoint, $size))} {
+	@if map-has-key($breakpoints, $size) {
+		@media screen and #{unquote(map-get($breakpoints, $size))} {
 			@content;
 		}
 	} @else {

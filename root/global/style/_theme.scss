@@ -1,14 +1,16 @@
 //****
 /******* Text *******/
 //****
-@font-face {
-	font-family: 'Rubik';
-	src: url('../Rubik-VariableFont_wght.ttf') format('woff2 supports variations'),
-       url('../Rubik-VariableFont_wght.ttf') format('woff2-variations');
-	font-weight: 300 900;
-}
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+/*  font-family: 'Rubik', sans-serif;
+    weights: 300, 400
+
+    font-family: 'Quicksand', sans-serif;
+    weights: 400, 700
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Rubik:wght@300;400&display=swap');
+
 
 
 
@@ -66,7 +68,7 @@ body {
         $offsetX: $offsetY * $direction / 8;
     }
 
-    @debug $direction;
+    // @debug $direction;
     // @debug $offsetX;
 
     $css:();
@@ -84,7 +86,7 @@ body {
         $offsetX: $offsetX / 2;
         $offsetY: $offsetY / 2;
     }
-    @debug $css;
+    // @debug $css;
     box-shadow: $css;
 };
 .shadow {

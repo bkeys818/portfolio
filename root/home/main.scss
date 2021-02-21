@@ -1,42 +1,102 @@
 @use '../global/style' as *;
 
-.main-content {
-    $margins: 26px;
+.margins-container {
+    $breakpoint: 1440px;
     $max-width: 1000px;
-    $xlarge: 1439px; // 1440px
+    $margin-width: 26px;
+    @function margin-width() {
+        @return (($breakpoint - $max-width) / $breakpoint) * 50%;
+    }
 
-    max-width: $max-width + $margins;
-    padding: 0 $margins;
-    margin: 0 auto;
-    @media screen and (min-width: $xlarge) {
-        max-width: none;
-        margin: 0 calc((#{$xlarge + 1} - #{$max-width + $margins}) / 2);
+    // take up as much with as possible
+    width: 100%;
+
+    // set margins (padding attr) & max-width
+    padding-left: margin-width();
+    padding-right: margin-width();
+    @media screen and (max-width: $breakpoint) {
+        max-width: calc(#{$max-width} + (#{$margin-width} * 2));
+        padding-left: $margin-width;
+        padding-right: $margin-width;
+    }
+    margin-left: auto;
+    margin-right: auto;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+
+@mixin vertical-gutters($width: 12px) {
+    &:not(:first-child):not(:last-child) {
+        margin-left: $width;
+        margin-right: $width;
+    }
+    &:first-child {
+        margin-right: $width;
+    }
+    &:last-child {
+        margin-left: $width;
     }
 }
 
 
 
-// header {
-//     div {h3 { display: inline-block;}}
 
-//     display: flex;
-//     flex-direction: row;
-//     align-items: center;
 
-//     div, nav {
-//         div { display: inline-block; }
-//     }
 
-//     .logo {
-//         font-size: 32px;
-//     }
-    
-//     nav {
-//         flex-grow: 1;
-//     }
-// }
 
-// a {
-//     text-decoration: none;
-//     color: inherit;
-// }
+header {
+    >* { @include vertical-gutters(24px) }
+    // display: grid;
+    // grid-template-columns: 1fr auto 1fr;
+    display: flex;
+    align-items: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    .logo {
+        margin-right: 12px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 700;
+        font-size: 36px;
+    }
+
+    .links {
+        margin-top: 4px;
+
+        flex-grow: 1;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 300;
+        font-size: 1.6rem;
+        text-transform: lowercase;
+        a { @include vertical-gutters(8px) }
+    }
+
+    .social {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        .icon {
+            padding: 2px 0;
+            @include vertical-gutters(14px);
+            width: auto;
+
+            &.behance {
+                height: 36px;
+            }
+            &.upwork {
+                height: 42px;
+                padding-top:8px;
+                padding-bottom: 0;
+                margin-left: 12px!important;
+            }
+
+            &.instagram {
+                height: 28px;
+            }
+        }
+    }
+}
