@@ -1,0 +1,7 @@
+@mixin grow-on-hover {
+    transition: transform .17s ease-in-out;
+    cursor: pointer;
+    &:hover {
+        transform: scale(1.1);
+    }
+}
