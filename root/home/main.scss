@@ -1,4 +1,62 @@
 @use '../global/style' as *;
+@use 'icons' as *;
+
+.icon-gallery {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    grid-auto-rows: 190px;
+    grid-gap: 15px;
+}
+
+.icon-card {
+    position: relative;
+    $padding: 14px;
+
+    background-color: $secoundary-background-color;
+    border-radius: 10px;
+
+    >* {
+        position: absolute;
+        left: $padding;
+        right: $padding;
+    }
+    div {
+        top: $padding;
+    }
+    svg {
+        display: block;
+        margin: 0 auto;
+        height: calc(100px * (50 / 44));
+        width: calc(100px * (50 / 44));
+    }
+    h4 {
+        font-family: 'Rubik', sans-serif;
+        font-weight: 400;
+        font-size: 20px;
+        text-align: center;
+
+        position: absolute;
+        bottom: $padding;
+        left: $padding;
+        right: $padding;
+    }
+}
+
+
+
+[id^=icon] {
+    &.glyph {
+        fill: #000;
+    }
+    &.outline {
+        stroke: #000;
+    }
+}
+
+
+
 
 .margins-container {
     $breakpoint: 1440px;

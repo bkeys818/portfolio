@@ -18,7 +18,7 @@
 /******* Color Scheme *******/
 //****
 $primary-background-color: #fff !default;
-$secoundary-background-color: #f1f5f8 !default;
+$secoundary-background-color: #f7fafc !default;
 $primary-color: #252a32 !default;
 
 body {
@@ -33,7 +33,7 @@ body {
 //****
 .relative-container {
     position: relative;
-    .child {
+    .container-child {
         position: absolute;
         &.center{
             &-v {
