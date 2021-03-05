@@ -1,0 +1,72 @@
+// [id^=icon] {
+//     stroke-linecap: round;
+//     stroke-linejoin: round;
+//     &.outline {
+//         fill: none;
+//         stroke: inherit;
+//         stroke-linecap: round;
+//         stroke-linejoin: round;
+//         // stroke-width: 2;
+//         stroke-miterlimit: 10;
+//         overflow: visible;
+
+//         &.unblock-fill,
+//         .unblock-fill {
+//             fill: inherit;
+//         }
+//     }
+// }
+
+#icon-gallery {
+    width: 100%;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    grid-auto-rows: 190px;
+    grid-gap: 15px;
+}
+
+.icon-card {
+    display: flex;
+    flex-direction: column;
+    padding: 14px;
+
+    // background-color: $secoundary-background-color;
+    border-radius: 10px;
+
+    div {
+        flex: 1;
+    }
+    svg {
+        display: block;
+        margin: auto;
+    }
+    h4 {
+        font-family: 'Rubik', sans-serif;
+        font-weight: 400;
+        font-size: 20px;
+        text-align: center;
+    }
+}
+
+#icon-gallery-content symbol{
+    max-height: 64px;
+    width: 64px;
+    fill: none;
+    stroke: #000;
+}
+
+#icon-gallery-settings {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    height: 120px;
+    width: 400px;
+    background-color: #d8d8d8;
+}
+
+#icon-stroke-width-slider{
+    width: 80%;
+    height: 10%;
+    margin: 10%;
+}

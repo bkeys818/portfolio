@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="26px" height="100px" viewBox="-1 -2 26 100">
+    <symbol id="icon-instagram" viewBox="0 0 24 24">
+        <title>Instagram</title>
+        <rect x="0" y="0" width="24" height="24" rx="7.5"></rect>
+        <circle cx="12" cy="12" r="5.5"></circle>
+        <circle cx="19" cy="5" r=".5" fill="currentColor"></circle>
+    </symbol>
+    <rect width="24" height="24" fill="none" stroke-width="0.1" stroke="#000"></rect>
+    <use href="#icon-instagram" fill="none" stroke="black" opacity=".3" transform="scale(0.916666667)" height="24" width="24" overflow="visible"></use>
+    <g fill="none" stroke="black" stroke-width="1">
+        <g stroke-width=".25">
+            <rect x=".5" y=".5" width="22" height="22" rx="7.1875"></rect>
+            <circle cx="12" cy="12" r="5.5"></circle>
+            <circle cx="18.75" cy="5.25" r=".5" fill="currentColor"></circle>
+        </g>
+    </g>
+</svg>
