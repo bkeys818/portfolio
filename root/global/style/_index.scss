@@ -1,9 +1,67 @@
 @use 'reset';
 @forward 'animations';
 @forward 'theme';
-@forward 'responsive-design';
 
 @mixin debugging {
 	border: 0.5px solid red;
 	box-sizing: border-box;
 };
+
+header {
+    > * {
+        @include vertical-gutters(24px);
+    }
+    display: flex;
+    align-items: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    .logo {
+        margin-right: 18px;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: 700;
+        font-size: 36px;
+    }
+
+    .links {
+        margin-top: 4px;
+
+        flex-grow: 1;
+        font-family: 'Rubik', sans-serif;
+        font-weight: 300;
+        font-size: 1.6rem;
+        text-transform: lowercase;
+        a {
+            display: inline-block;
+            @include vertical-gutters(8px);
+        }
+    }
+
+    .social {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        .icon {
+            @include vertical-gutters(14px);
+            padding: 2px;
+            width: auto;
+
+            &.behance {
+                height: 38px;
+            }
+            &.upwork {
+                height: 44px;
+                margin-top: 8px;
+                // margin-bottom: 0;
+                margin-left: 12px !important;
+            }
+
+            &.instagram {
+                height: 30px;
+            }
+        }
+    }
+
+    .logo *, .links a, .social img {
+        @include grow-on-hover;
+    }
+}

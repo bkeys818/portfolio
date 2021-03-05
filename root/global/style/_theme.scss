@@ -1,7 +1,8 @@
-//****
-/******* Text *******/
-//****
+// -------------------- //
+//         Font         //
+// -------------------- //
 
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Rubik:wght@300;400&display=swap');
 /*  font-family: 'Rubik', sans-serif;
     weights: 300, 400
 
@@ -9,14 +10,13 @@
     weights: 400, 700
 */
 
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&family=Rubik:wght@300;400&display=swap');
 
 
 
+// -------------------- //
+//     Color Scheme     //
+// -------------------- //
 
-//****
-/******* Color Scheme *******/
-//****
 $primary-background-color: #fff !default;
 $secoundary-background-color: #f1f5f8 !default;
 $primary-color: #252a32 !default;
@@ -28,9 +28,11 @@ body {
 
 
 
-//****
-/******* Other *******/
-//****
+
+// -------------------- //
+//        Layout        //
+// -------------------- //
+
 .relative-container {
     position: relative;
     .child {
@@ -53,7 +55,48 @@ body {
     }
 }
 
-//shadow
+.margins-container {
+    $breakpoint: 1440px;
+    $max-width: 1000px;
+    $margin-width: 26px;
+    @function margin-width() {
+        @return (($breakpoint - $max-width) / $breakpoint) * 50%;
+    }
+
+    // take up as much with as possible
+    width: 100%;
+
+    // set margins (padding attr) & max-width
+    padding-left: margin-width();
+    padding-right: margin-width();
+    @media screen and (max-width: $breakpoint) {
+        max-width: calc(#{$max-width} + (#{$margin-width} * 2));
+        padding-left: $margin-width;
+        padding-right: $margin-width;
+    }
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin vertical-gutters($width: 12px) {
+    &:not(:first-child):not(:last-child) {
+        margin-left: $width;
+        margin-right: $width;
+    }
+    &:first-child {
+        margin-right: $width;
+    }
+    &:last-child {
+        margin-left: $width;
+    }
+}
+
+
+
+// -------------------- //
+//        Other         //
+// -------------------- //
+
 @mixin smooth-shadow($direction: center, $offset: 20) {
     $layers: $offset/5+1;
     $offsetY: $offset * 1px;
@@ -89,20 +132,3 @@ body {
     // @debug $css;
     box-shadow: $css;
 };
-.shadow {
-    @include smooth-shadow;
-}
-$dir:();
-@for $i from 1 to 6 {
-    $dir: append($dir, #{$i});
-}
-$i-int: 1;
-@each $i in $dir {
-    .shadow-left#{$i} {
-        @include smooth-shadow($i-int);
-    }
-    .shadow-right#{$i} {
-        @include smooth-shadow(-1 * $i-int);
-    }
-    $i-int: $i-int + 1;
-}
