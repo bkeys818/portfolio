@@ -1,0 +1,58 @@
+main.gallery {
+    padding: 2rem;
+}
+
+ul {
+    list-style-type: none; /* Remove bullets */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+}
+
+figure {
+    height: 100%;
+    width: 100%;
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margins */
+    position: relative;
+}
+
+.gallery > .gallery__list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    grid-template-rows: repeat(6, 200px);
+    grid-gap: 1rem;
+    grid-auto-flow: dense;
+}
+
+/* This will create 2x images every 4 elements */
+.gallery > .gallery__list > li:nth-child(4n) {
+    grid-column: span 2; /* Spans two columns */
+    grid-row: span 2; /* Spans two rows */
+}
+
+/* This will create 2x images every 4 elements */
+.gallery > .gallery__list > li:nth-child(3n) {
+    grid-column: span 2; /* Spans two columns */
+    grid-row: span 1; /* Spans two rows */
+}
+
+/* This will create 3x images every 8 elements */
+.gallery > .gallery__list > li:nth-child(8n) {
+    grid-column: span 3;
+    grid-row: span 3;
+}
+
+figure > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+figure > h2 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+}
